@@ -7,7 +7,7 @@ RUN \
 	echo "Acquire{Check-Valid-Until false; Retries 10;}" >> /etc/apt/apt.conf && \
 	apt-get update && \
 	apt-get install -y --no-install-recommends \
-		locales=2.28-10 && \
+		locales=2.28-10+deb10u1 && \
 	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
 	locale-gen en_US.utf8 && \
 	apt-get clean -y && \
