@@ -11,7 +11,11 @@ RUN \
 ENV \
 	LC_ALL=en_GB.UTF-8 \
 	LANG=en_GB.UTF-8 \
-	LANGUAGE=en_GB.UTF-8
+	LANGUAGE=en_GB.UTF-8 \
+	CONDA_DIR=/opt/conda
+
+ENV \
+	PATH="$CONDA_DIR/bin:$PATH"
 
 RUN \
 	apt-get update && \
@@ -30,11 +34,6 @@ RUN \
 		build-essential \
 		git \
 		curl \
-		python2.7 \
-		python2.7-dev \
-		python3 \
-		python3-dev \
-		python3-pip \
 		libfreetype-dev \
 		man-db \
 		vim \
@@ -46,10 +45,6 @@ RUN \
     rm /etc/apt/sources.list.d/nodesource.list && \
     rm -rf /var/lib/apt/lists/*
 
-RUN \
-	update-alternatives --install /usr/bin/python python /usr/bin/python3 2 && \
-	update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-
 COPY requirements.txt python-setup.sh /root/
 
 RUN \
@@ -57,13 +52,27 @@ RUN \
 	adduser --disabled-password --gecos '' --ingroup theia --uid 4357 theia
 
 RUN \
+	mkdir -p "$CONDA_DIR" && \
+	curl https://repo.anaconda.com/miniconda/Miniconda3-py39_4.11.0-Linux-x86_64.sh --output /root/miniconda.sh && \
+	echo "4ee9c3aa53329cd7a63b49877c0babb49b19b7e5af29807b793a76bdb1d362b4 /root/miniconda.sh" | sha256sum --check --status && \
+	bash /root/miniconda.sh -f -b -p "$CONDA_DIR" && \
+	echo 'channels:' > /opt/conda/.condarc && \
+	echo '  - https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/conda-forge/' >> /opt/conda/.condarc && \
+	echo '  - https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/anaconda/' >> /opt/conda/.condarc && \
+	echo 'allow_other_channels: false' >> /opt/conda/.condarc && \
+	echo 'auto_update_conda: false' >> /opt/conda/.condarc && \
+	echo 'always_yes: true' >> /opt/conda/.condarc && \
+	echo 'show_channel_urls: true' >> /opt/conda/.condarc
+
+RUN \
     echo '[global]' > /etc/pip.conf && \
     echo 'index-url = https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/pypi/' >> /etc/pip.conf && \
     echo 'no-cache-dir = false' >> /etc/pip.conf
 
 RUN \
+    /root/python-setup.sh && \
     chown -R theia:theia /usr/local && \
-    /root/python-setup.sh
+    chown -R theia:theia /opt/conda
 
 WORKDIR /root
 RUN \

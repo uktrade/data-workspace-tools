@@ -16,7 +16,11 @@ ENV \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
-    LD_LIBRARY_PATH=/lib
+    LD_LIBRARY_PATH=/lib \
+    CONDA_DIR=/opt/conda
+
+ENV \
+    PATH="$CONDA_DIR/bin:$PATH"
 
 RUN \
     apt-get update && \
@@ -24,10 +28,6 @@ RUN \
         ca-certificates \
         dirmngr \
         gnupg2 \
-        python3 \
-        python3-pip \
-        python3-dev \
-        python3-setuptools \
         libfreetype-dev \
         ssh \
         vim \
@@ -40,6 +40,7 @@ RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
+        curl \
         git \
         git-man \
         libxext6 \
@@ -77,6 +78,24 @@ COPY jupyterlab-python/jupyterlab_template_notebooks /jupyterlab_template_notebo
 COPY requirements.txt python-setup.sh /root/
 
 RUN \
+       mkdir -p "$CONDA_DIR" && \
+       curl https://repo.anaconda.com/miniconda/Miniconda3-py39_4.11.0-Linux-x86_64.sh --output /root/miniconda.sh && \
+       echo "4ee9c3aa53329cd7a63b49877c0babb49b19b7e5af29807b793a76bdb1d362b4 /root/miniconda.sh" | sha256sum --check --status && \
+       bash /root/miniconda.sh -f -b -p "$CONDA_DIR" && \
+       echo 'channels:' > /opt/conda/.condarc && \
+       echo '  - https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/conda-forge/' >> /opt/conda/.condarc && \
+       echo '  - https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/anaconda/' >> /opt/conda/.condarc && \
+       echo 'allow_other_channels: false' >> /opt/conda/.condarc && \
+       echo 'auto_update_conda: false' >> /opt/conda/.condarc && \
+       echo 'always_yes: true' >> /opt/conda/.condarc && \
+       echo 'show_channel_urls: true' >> /opt/conda/.condarc
+
+RUN \
+    echo '[global]' > /etc/pip.conf && \
+    echo 'index-url = https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/pypi/' >> /etc/pip.conf && \
+    echo 'no-cache-dir = false' >> /etc/pip.conf
+
+RUN \
     /root/python-setup.sh && \
     python3 -m pip install jupyterlab_template_notebooks/server/ && \
     jupyter serverextension enable --system --python jupyterlab_template_notebooks && \
@@ -85,10 +104,8 @@ RUN \
         /jupyterlab_template_notebooks/browser \
         @jupyter-widgets/jupyterlab-manager@2.0 && \
     npm cache clean --force && \
-    echo '[global]' > /etc/pip.conf && \
-    echo 'index-url = https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/pypi/' >> /etc/pip.conf && \
-    echo 'no-cache-dir = false' >> /etc/pip.conf && \
-    chown -R jovyan:jovyan /usr/local
+    chown -R jovyan:jovyan /usr/local && \
+    chown -R jovyan:jovyan /opt/conda
 
 COPY jupyterlab-python/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
 
