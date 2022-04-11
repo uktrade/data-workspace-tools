@@ -49,7 +49,8 @@
         "**/color-string": "^1.5.5",
         "**/ansi-regex": "5.0.1",
         "**/markdown-it": "12.3.2",
-        "**/requestretry": "7.0.0"
+        "**/requestretry": "7.0.0",
+        "**/moment": "^2.29.2"
     },
     "theiaPluginsDir": "plugins",
     "theiaPlugins": {
