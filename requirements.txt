@@ -205,11 +205,13 @@ nbformat==5.0.8
     #   nbclient
     #   nbconvert
     #   notebook
-nest-asyncio==1.4.3
-    # via nbclient
+nest-asyncio==1.5.5
+    # via
+    #   nbclient
+    #   notebook
 nltk==3.6.7
     # via -r requirements.in
-notebook==6.4.3
+notebook==6.4.10
     # via
     #   -r requirements.in
     #   jupyterlab
@@ -342,7 +344,7 @@ scipy==1.7.3
     #   seaborn
 seaborn==0.9.0
     # via -r requirements.in
-send2trash==1.5.0
+send2trash==1.8.0
     # via notebook
 sentry-sdk==0.9.0
     # via -r requirements.in
