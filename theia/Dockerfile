@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bullseye-20220328
 
 RUN \
 	apt-get update && \
