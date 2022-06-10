@@ -40,8 +40,11 @@ RUN \
 		emacs \
 		procps \
 		sudo \
-        libsecret-1.0 && \
-	curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+		python-is-python3 \
+		libx11-dev \
+		libxkbfile-dev \
+		libsecret-1-dev && \
+	curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     rm /etc/apt/sources.list.d/nodesource.list && \
     rm -rf /var/lib/apt/lists/*
@@ -104,7 +107,7 @@ RUN \
 	rm /home/theia/.bashrc
 
 COPY dw-install /usr/local/bin/dw-install
-COPY theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
+# COPY theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 COPY theia/start.sh /start.sh
 
 # The ipython history database does not play well with mobius3, surfacing
