@@ -38,6 +38,7 @@ RUN \
 		man-db \
 		vim \
 		emacs \
+		procps \
 		sudo \
         libsecret-1.0 && \
 	curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
