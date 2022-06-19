@@ -40,8 +40,9 @@ RUN \
 		emacs \
 		procps \
 		sudo \
-        libsecret-1.0 && \
-	curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+		pkg-config \
+		libsecret-1-dev && \
+	curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     rm /etc/apt/sources.list.d/nodesource.list && \
     rm -rf /var/lib/apt/lists/*
