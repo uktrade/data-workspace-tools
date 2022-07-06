@@ -207,13 +207,13 @@ nest-asyncio==1.5.5
     #   notebook
 nltk==3.6.7
     # via -r requirements.in
-notebook==6.4.10
+notebook==6.4.12
     # via
     #   -r requirements.in
     #   jupyterlab
     #   jupyterlab-server
     #   widgetsnbextension
-numpy==1.21.5
+numpy==1.22.0
     # via
     #   -r requirements.in
     #   blis
