@@ -17,22 +17,22 @@
     }
   },
   "dependencies": {
-    "@theia/callhierarchy": "^1.26.0",
-    "@theia/file-search": "^1.26.0",
-    "@theia/git": "^1.26.0",
-    "@theia/markers": "^1.26.0",
-    "@theia/messages": "^1.26.0",
-    "@theia/navigator": "^1.26.0",
-    "@theia/outline-view": "^1.26.0",
-    "@theia/plugin-ext-vscode": "^1.26.0",
-    "@theia/preferences": "^1.26.0",
-    "@theia/preview": "^1.26.0",
-    "@theia/search-in-workspace": "^1.26.0",
-    "@theia/terminal": "^1.26.0",
-    "@theia/vsx-registry": "^1.26.0"
+    "@theia/callhierarchy": "^1.27.0",
+    "@theia/file-search": "^1.27.0",
+    "@theia/git": "^1.27.0",
+    "@theia/markers": "^1.27.0",
+    "@theia/messages": "^1.27.0",
+    "@theia/navigator": "^1.27.0",
+    "@theia/outline-view": "^1.27.0",
+    "@theia/plugin-ext-vscode": "^1.27.0",
+    "@theia/preferences": "^1.27.0",
+    "@theia/preview": "^1.27.0",
+    "@theia/search-in-workspace": "^1.27.0",
+    "@theia/terminal": "^1.27.0",
+    "@theia/vsx-registry": "^1.27.0"
   },
   "devDependencies": {
-    "@theia/cli": "^1.26.0"
+    "@theia/cli": "^1.27.0"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build && yarn run download:plugins",
