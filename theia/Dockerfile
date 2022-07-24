@@ -104,6 +104,10 @@ RUN \
 	echo 'PS1="\w\\\\$ \[$(tput sgr0)\]"' >> /etc/bash.bashrc && \
 	rm /home/theia/.bashrc
 
+RUN \
+	mkdir /certs
+
+COPY rds-global-bundle.pem /certs/rds-global-bundle.pem
 COPY dw-install /usr/local/bin/dw-install
 COPY theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 COPY theia/start.sh /start.sh
