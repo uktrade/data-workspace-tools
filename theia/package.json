@@ -31,6 +31,9 @@
     "@theia/terminal": "^1.27.0",
     "@theia/vsx-registry": "^1.27.0"
   },
+  "resolutions": {
+    "**/terser": "^5.14.2"
+  },
   "devDependencies": {
     "@theia/cli": "^1.27.0"
   },
