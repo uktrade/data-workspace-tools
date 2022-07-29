@@ -32,7 +32,7 @@
     "@theia/vsx-registry": "^1.27.0"
   },
   "devDependencies": {
-    "@theia/cli": "^1.27.0"
+    "@theia/cli": "^1.28.0"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build && yarn run download:plugins",
