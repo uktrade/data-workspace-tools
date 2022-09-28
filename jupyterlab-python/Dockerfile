@@ -73,8 +73,6 @@ RUN \
     # Avoids errors when installing Java
     mkdir -p /usr/share/man/man1mkdir -p /usr/share/man/man1
 
-COPY jupyterlab-python/jupyterlab_database_access /jupyterlab_database_access
-COPY jupyterlab-python/jupyterlab_template_notebooks /jupyterlab_template_notebooks
 COPY requirements.txt python-setup.sh /root/
 
 RUN \
@@ -97,13 +95,7 @@ RUN \
 
 RUN \
     /root/python-setup.sh && \
-    python3 -m pip install jupyterlab_template_notebooks/server/ && \
-    jupyter serverextension enable --system --python jupyterlab_template_notebooks && \
-    jupyter labextension install \
-        /jupyterlab_database_access \
-        /jupyterlab_template_notebooks/browser \
-        @jupyter-widgets/jupyterlab-manager@2.0 && \
-    npm cache clean --force && \
+    jupyter lab build && \
     chown -R jovyan:jovyan /usr/local && \
     chown -R jovyan:jovyan /opt/conda
 
