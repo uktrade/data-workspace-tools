@@ -1,0 +1,80 @@
+version: 2.1
+jobs:
+  lint:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "requirements.txt" }}-{{ checksum "requirements-tensorflow-worker.txt" }}-{{ checksum "requirements-dev.txt" }}
+      - run:
+          name: Install requirements
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install wheel
+            pip install -r requirements-dev.txt
+      - save_cache:
+          key: v1-{{ checksum "requirements.txt" }}-{{ checksum "requirements-tensorflow-worker.txt" }}-{{ checksum "requirements-dev.txt" }}
+          paths:
+            - venv
+      - run:
+          name: Run static checks
+          command: |
+            . venv/bin/activate
+            make check
+      - run:
+          name: Run pre-commit hooks
+          command: |
+            . venv/bin/activate
+            make precommit-checks
+  unit-test:
+    docker:
+      - image: circleci/python:3.9
+        environment:
+          - ENABLE_ELASTICSEARCH=True
+      - image: circleci/postgres:11
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: dwtest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "requirements.txt" }}-{{ checksum "requirements-tensorflow-worker.txt" }}-{{ checksum "requirements-dev.txt" }}
+      - run:
+          name: Install requirements
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install wheel
+            pip install -r requirements-dev.txt
+      - save_cache:
+          key: v1-{{ checksum "requirements.txt" }}-{{ checksum "requirements-tensorflow-worker.txt" }}-{{ checksum "requirements-dev.txt" }}
+          paths:
+            - venv
+      - run:
+          name: Run unit tests
+          command: |
+            . venv/bin/activate
+            make test
+  integration-test:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Run integration tests
+          command: |
+            make test-integration
+
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - lint
+      - unit-test
+      - integration-test
