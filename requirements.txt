@@ -6,10 +6,6 @@
 #
 anyio==3.6.1
     # via jupyter-server
-appnope==0.1.3
-    # via
-    #   ipykernel
-    #   ipython
 argon2-cffi==20.1.0
     # via
     #   jupyter-server
@@ -55,10 +51,6 @@ idna==2.10
     # via
     #   anyio
     #   requests
-importlib-metadata==4.10.1
-    # via
-    #   jupyterlab-server
-    #   nbconvert
 ipykernel==6.16.0
     # via
     #   ipympl
@@ -200,7 +192,7 @@ pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pillow==9.0.1
+pillow==9.3.0
     # via matplotlib
 prettytable==2.0.0
     # via ipython-sql
@@ -324,8 +316,6 @@ websocket-client==1.4.1
     # via jupyter-server
 widgetsnbextension==3.5.1
     # via ipywidgets
-zipp==3.8.1
-    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
