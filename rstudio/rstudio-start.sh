@@ -28,10 +28,15 @@ while IFS='=' read -r name value ; do
     echo "library(DBI)" > "/etc/rstudio/connections/$conn_name.R"
     echo "con <- dbConnect(RPostgreSQL::PostgreSQL(), user='${db_user}', password='$db_password', host='$db_host', port='$db_port', dbname='$db_name')" >> "/etc/rstudio/connections/$conn_name.R"
   fi
+
+  # Make all S3_* environment variables available. This is dynamic based
+  # on which teams the user is a part of
+  if [[ $name == *'S3_'* ]]; then
+    echo "${name}='${!name}'" >> /etc/R/Renviron.site
+  fi
 done < <(env)
 
 echo "APP_SCHEMA='${APP_SCHEMA}'" >> /etc/R/Renviron.site
-echo "S3_PREFIX='${S3_PREFIX}'" >> /etc/R/Renviron.site
 echo "AWS_DEFAULT_REGION='${AWS_DEFAULT_REGION}'" >> /etc/R/Renviron.site
 echo "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI='${AWS_CONTAINER_CREDENTIALS_RELATIVE_URI}'" >> /etc/R/Renviron.site
 echo "TZ='Europe/London'" >> /etc/R/Renviron.site
