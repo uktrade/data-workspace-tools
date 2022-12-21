@@ -17,26 +17,24 @@
     }
   },
   "dependencies": {
-    "@theia/callhierarchy": "^1.31.0",
-    "@theia/file-search": "^1.31.0",
-    "@theia/git": "^1.31.0",
-    "@theia/markers": "^1.31.0",
-    "@theia/messages": "^1.31.0",
-    "@theia/navigator": "^1.31.0",
-    "@theia/outline-view": "^1.31.0",
-    "@theia/plugin-ext-vscode": "^1.31.0",
-    "@theia/preferences": "^1.31.0",
-    "@theia/preview": "^1.31.0",
-    "@theia/search-in-workspace": "^1.31.0",
-    "@theia/terminal": "^1.31.0",
-    "@theia/vsx-registry": "^1.31.0"
+    "@theia/callhierarchy": "^1.33.0",
+    "@theia/file-search": "^1.33.0",
+    "@theia/git": "^1.33.0",
+    "@theia/markers": "^1.33.0",
+    "@theia/messages": "^1.33.0",
+    "@theia/navigator": "^1.33.0",
+    "@theia/outline-view": "^1.33.0",
+    "@theia/plugin-ext-vscode": "^1.33.0",
+    "@theia/preferences": "^1.33.0",
+    "@theia/preview": "^1.33.0",
+    "@theia/search-in-workspace": "^1.33.0",
+    "@theia/terminal": "^1.33.0",
+    "@theia/vsx-registry": "^1.33.0"
   },
   "devDependencies": {
-    "@theia/cli": "^1.31.0"
+    "@theia/cli": "^1.33.0"
   },
   "resolutions": {
-    "socket.io-parser": "~4.2.1",
-    "**/mocha/minimatch": "~3.0.5",
     "**/loader-utils": "^2.0.3"
   },
   "scripts": {
