@@ -78,7 +78,7 @@ RUN \
 	echo 'www-port=8888' >> /etc/rstudio/rserver.conf && \
 	echo 'auth-none=1' >> /etc/rstudio/rserver.conf && \
 	echo 'server-daemonize=0' >> /etc/rstudio/rserver.conf && \
-	echo 'local({' >> /usr/lib/R/etc/Rprofile.site && \
+	echo 'local({' > /usr/lib/R/etc/Rprofile.site && \
 	echo '  r = getOption("repos")' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r["CRAN_1"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  options(repos = r)' >> /usr/lib/R/etc/Rprofile.site && \
