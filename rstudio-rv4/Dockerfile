@@ -55,6 +55,17 @@ RUN \
 		texlive \
 		texlive-latex-extra \
 		git-man \
+		libcairo2-dev \
+		libfontconfig1-dev \
+		libjq-dev \
+		libmagick++-dev \
+		libnode-dev \
+		libprotobuf-dev \
+		libprotobuf-dev \
+		libssl-dev \
+		libudunits2-dev \
+		libv8-dev \
+		protobuf-compiler \
 		man-db=2.8.5-2 \
                 vim \
                 emacs \
