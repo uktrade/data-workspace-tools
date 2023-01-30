@@ -1,0 +1,6 @@
+#!/bin/bash
+
+exec python -m git_lfs_http_mirror \
+    --upstream-root 'https://s3.eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io' \
+    --bind '127.0.0.1:8080' \
+    $@

@@ -33,6 +33,7 @@ RUN \
 	apt-get install -y \
 		build-essential \
 		git \
+		git-lfs \
 		curl \
 		libfreetype-dev \
 		man-db \
@@ -109,6 +110,7 @@ RUN \
 
 COPY rds-global-bundle.pem /certs/rds-global-bundle.pem
 COPY dw-install /usr/local/bin/dw-install
+COPY glfsm /usr/local/bin/glfsm
 COPY theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 COPY theia/start.sh /start.sh
 

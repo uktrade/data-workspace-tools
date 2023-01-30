@@ -42,6 +42,7 @@ RUN \
         build-essential \
         curl \
         git \
+        git-lfs \
         git-man \
         libxext6 \
         libxrender1 \
@@ -123,6 +124,7 @@ RUN \
     rm /home/jovyan/.bashrc
 
 COPY dw-install /usr/local/bin/dw-install
+COPY glfsm /usr/local/bin/glfsm
 COPY jupyterlab-python/start.sh /
 
 CMD ["/start.sh"]

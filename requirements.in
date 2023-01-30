@@ -1,4 +1,5 @@
 cython
+git-lfs-http-mirror
 ipympl
 ipython-sql
 ipython
