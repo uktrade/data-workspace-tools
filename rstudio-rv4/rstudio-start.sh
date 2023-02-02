@@ -47,4 +47,4 @@ echo "PGDATABASE='${PGDATABASE}'" >> /etc/R/Renviron.site
 echo "PGUSER='${PGUSER}'" >> /etc/R/Renviron.site
 echo "PGPASSWORD='${PGPASSWORD}'" >> /etc/R/Renviron.site
 
-sudo -E -H -u rstudio /usr/lib/rstudio-server/bin/rserver
+exec /usr/lib/rstudio-server/bin/rserver --server-daemonize=0 --server-user=rstudio

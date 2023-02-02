@@ -70,10 +70,10 @@ RUN \
                 vim \
                 emacs \
 		wget && \
-	wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5019-amd64.deb && \
-	echo "bfea9b32c04b721d5d2fb29be510b4378d57a6cd6c8c0dc8390b8760a87341b3  rstudio-server-1.2.5019-amd64.deb" | sha256sum -c && \
-	gdebi --non-interactive rstudio-server-1.2.5019-amd64.deb && \
-	rm rstudio-server-1.2.5019-amd64.deb && \
+	wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.12.0-353-amd64.deb && \
+	echo "bb88e37328c304881e60d6205d7dac145525a5c2aaaf9da26f1cb625b7d47e6e  rstudio-server-2022.12.0-353-amd64.deb" | sha256sum -c && \
+	gdebi --non-interactive rstudio-server-2022.12.0-353-amd64.deb && \
+	rm rstudio-server-2022.12.0-353-amd64.deb && \
 	apt-get remove --purge -y \
 		dirmngr \
 		gdebi-core \
@@ -100,7 +100,7 @@ RUN \
 	Rscript -e 'install.packages("/exploretiva", repos=NULL, type="source")' && \
 	Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse"), repos="https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/", clean=TRUE)'
 
-COPY rstudio/rstudio-start.sh /
+COPY rstudio-rv4/rstudio-start.sh /
 
 ENV \
 	USER=rstudio
