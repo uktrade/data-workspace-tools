@@ -70,10 +70,10 @@ RUN \
                 vim \
                 emacs \
 		wget && \
-	wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5019-amd64.deb && \
-	echo "bfea9b32c04b721d5d2fb29be510b4378d57a6cd6c8c0dc8390b8760a87341b3  rstudio-server-1.2.5019-amd64.deb" | sha256sum -c && \
-	gdebi --non-interactive rstudio-server-1.2.5019-amd64.deb && \
-	rm rstudio-server-1.2.5019-amd64.deb && \
+	wget -q https://download2.rstudio.org/server/xenial/amd64/rstudio-server-1.4.1106-5-amd64.deb && \
+	echo "bfea9b32c04b721d5d2fb29be510b4378d57a6cd6c8c0dc8390b8760a87341b3  rstudio-server-1.4.1106-5-amd64.deb" | sha256sum -c && \
+	gdebi --non-interactive rstudio-server-1.4.1106-5-amd64.deb && \
+	rm rstudio-server-1.4.1106-5-amd64.deb && \
 	apt-get remove --purge -y \
 		dirmngr \
 		gdebi-core \
