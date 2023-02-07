@@ -83,7 +83,9 @@ RUN \
 	apt-get autoremove -y && \
 	apt-get autoclean -y && \
 	rm -rf /tmp/* && \
-	rm -rf /var/lib/apt/lists/* && \
+	rm -rf /var/lib/apt/lists/*
+
+RUN \
 	# Remove the last line from sources: the CRAN debian repo that has R itself, which we don't mirror
 	sed -i '$d' /etc/apt/sources.list && \
 	echo 'www-port=8888' >> /etc/rstudio/rserver.conf && \
@@ -91,14 +93,16 @@ RUN \
 	echo 'server-daemonize=0' >> /etc/rstudio/rserver.conf && \
 	echo 'local({' > /usr/lib/R/etc/Rprofile.site && \
 	echo '  r = getOption("repos")' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '  r["CRAN"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/"' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r["CRAN_1"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  options(repos = r)' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '})' >> /usr/lib/R/etc/Rprofile.site && \
+	echo 'CRAN=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/' >> /etc/rstudio/repos.conf && \
 	echo 'CRAN_1=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/' >> /etc/rstudio/repos.conf && \
 	echo 'session-timeout-minutes=0' >> /etc/rstudio/rsession.conf && \
 	echo 'session-save-action-default=no' >> /etc/rstudio/rsession.conf && \
 	Rscript -e 'install.packages("/exploretiva", repos=NULL, type="source")' && \
-	Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse"), repos="https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/", clean=TRUE)'
+	Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse"), repos="https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/", clean=TRUE)'
 
 COPY rstudio-rv4/rstudio-start.sh /
 
