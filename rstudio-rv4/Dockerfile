@@ -66,6 +66,8 @@ RUN \
 		libudunits2-dev \
 		libv8-dev \
 		protobuf-compiler \
+		libfribidi-dev \
+		libharfbuzz-dev \
 		man-db=2.8.5-2 \
                 vim \
                 emacs \
@@ -102,7 +104,8 @@ RUN \
 	echo 'session-timeout-minutes=0' >> /etc/rstudio/rsession.conf && \
 	echo 'session-save-action-default=no' >> /etc/rstudio/rsession.conf && \
 	Rscript -e 'install.packages("/exploretiva", repos=NULL, type="source")' && \
-	Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse"), repos="https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/", clean=TRUE)'
+	Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse"), repos="https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/", clean=TRUE)' && \
+	Rscript -e 'install.packages("devtools")'
 
 COPY rstudio-rv4/rstudio-start.sh /
 
