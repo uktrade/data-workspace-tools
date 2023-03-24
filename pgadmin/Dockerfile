@@ -1,4 +1,4 @@
-FROM dpage/pgadmin4:4.27
+FROM dpage/pgadmin4:6.21
 
 ENV \
 	PGADMIN_LISTEN_ADDRESS=0.0.0.0 \
