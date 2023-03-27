@@ -72,10 +72,10 @@ RUN \
                 vim \
                 emacs \
 		wget && \
-	wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.12.0-353-amd64.deb && \
-	echo "bb88e37328c304881e60d6205d7dac145525a5c2aaaf9da26f1cb625b7d47e6e  rstudio-server-2022.12.0-353-amd64.deb" | sha256sum -c && \
-	gdebi --non-interactive rstudio-server-2022.12.0-353-amd64.deb && \
-	rm rstudio-server-2022.12.0-353-amd64.deb && \
+	wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2023.03.0-386-amd64.deb && \
+	echo "8dcc6003cce4cf41fbbc0fd2c37c343311bbcbfa377d2e168245ab329df835b5  rstudio-server-2023.03.0-386-amd64.deb" | sha256sum -c && \
+	gdebi --non-interactive rstudio-server-2023.03.0-386-amd64.deb && \
+	rm rstudio-server-2023.03.0-386-amd64.deb && \
 	apt-get remove --purge -y \
 		dirmngr \
 		gdebi-core \
