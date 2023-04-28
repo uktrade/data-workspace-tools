@@ -59,7 +59,7 @@ RUN \
     groupadd -g 4356 jovyan && \
     useradd -u 4357 jovyan -g jovyan -m && \
     echo "root ALL=(ALL:ALL) ALL" > /etc/sudoers && \
-    echo "jovyan ALL=NOPASSWD:/usr/local/bin/dw-install" >> /etc/sudoers && \
+    echo "jovyan ALL=NOPASSWD:/usr/bin/dw-install" >> /etc/sudoers && \
     wget -q -O - https://deb.nodesource.com/setup_14.x | bash  && \
     apt-get install -y nodejs && \
     apt-get remove --purge -y \
@@ -97,6 +97,7 @@ RUN \
 RUN \
     /root/python-setup.sh && \
     jupyter lab build && \
+    chown -R jovyan:jovyan /usr/local && \
     chown -R jovyan:jovyan /opt/conda
 
 COPY jupyterlab-python/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
