@@ -74,7 +74,6 @@ RUN \
 
 RUN \
     /root/python-setup.sh && \
-    chown -R theia:theia /usr/local && \
     chown -R theia:theia /opt/conda
 
 WORKDIR /root
