@@ -97,7 +97,6 @@ RUN \
 RUN \
     /root/python-setup.sh && \
     jupyter lab build && \
-    chown -R jovyan:jovyan /usr/local && \
     chown -R jovyan:jovyan /opt/conda
 
 COPY jupyterlab-python/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
@@ -123,8 +122,8 @@ RUN \
     echo 'PS1="\w\\\\$ \[$(tput sgr0)\]"' >> /etc/bash.bashrc && \
     rm /home/jovyan/.bashrc
 
-COPY dw-install /usr/local/bin/dw-install
-COPY glfsm /usr/local/bin/glfsm
+COPY dw-install /usr/bin/dw-install
+COPY glfsm /usr/bin/glfsm
 COPY jupyterlab-python/start.sh /
 
 CMD ["/start.sh"]

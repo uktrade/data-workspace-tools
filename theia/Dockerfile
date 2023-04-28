@@ -108,8 +108,8 @@ RUN \
 	mkdir /certs
 
 COPY rds-global-bundle.pem /certs/rds-global-bundle.pem
-COPY dw-install /usr/local/bin/dw-install
-COPY glfsm /usr/local/bin/glfsm
+COPY dw-install /usr/bin/dw-install
+COPY glfsm /usr/bin/glfsm
 COPY theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 COPY theia/start.sh /start.sh
 
