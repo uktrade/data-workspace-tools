@@ -74,7 +74,6 @@ RUN \
 
 RUN \
     /root/python-setup.sh && \
-    chown -R theia:theia /usr/local && \
     chown -R theia:theia /opt/conda
 
 WORKDIR /root
@@ -101,7 +100,7 @@ RUN \
 	touch /root/yarn-error.log && \
 	chown theia:theia /root/yarn-error.log && \
 	echo "root ALL=(ALL:ALL) ALL" > /etc/sudoers && \
-	echo "theia ALL=NOPASSWD:/usr/local/bin/dw-install" >> /etc/sudoers && \
+	echo "theia ALL=NOPASSWD:/usr/bin/dw-install" >> /etc/sudoers && \
 	echo 'PS1="\w\\\\$ \[$(tput sgr0)\]"' >> /etc/bash.bashrc && \
 	rm /home/theia/.bashrc
 
@@ -109,8 +108,8 @@ RUN \
 	mkdir /certs
 
 COPY rds-global-bundle.pem /certs/rds-global-bundle.pem
-COPY dw-install /usr/local/bin/dw-install
-COPY glfsm /usr/local/bin/glfsm
+COPY dw-install /usr/bin/dw-install
+COPY glfsm /usr/bin/glfsm
 COPY theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 COPY theia/start.sh /start.sh
 
