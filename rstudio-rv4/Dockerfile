@@ -1,14 +1,16 @@
 FROM debian:buster
 
 RUN \
-	echo "deb http://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ buster main" > /etc/apt/sources.list && \
-	echo "deb http://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ buster/updates main" >> /etc/apt/sources.list && \
-	echo "deb http://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ buster-updates main" >> /etc/apt/sources.list && \
+	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ buster main" > /etc/apt/sources.list && \
+	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ buster/updates main" >> /etc/apt/sources.list && \
+	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ buster-updates main" >> /etc/apt/sources.list && \
 	echo "Acquire{Check-Valid-Until false; Retries 10;}" >> /etc/apt/apt.conf && \
-	apt-get update && \
+    echo "Acquire { https::Verify-Peer false }" > /etc/apt/apt.conf.d/99verify-peer.conf && \
+    apt-get update && \
 	apt-get install -y --no-install-recommends \
-		locales && \
-	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+		locales ca-certificates && \
+    rm /etc/apt/apt.conf.d/99verify-peer.conf && \
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
 	locale-gen en_US.utf8 && \
 	apt-get clean -y && \
 	apt-get autoremove -y && \
@@ -26,7 +28,6 @@ COPY rstudio/exploretiva /exploretiva
 RUN \
 	apt-get update && \
 	apt-get install -y --no-install-recommends \
-		ca-certificates \
 		dirmngr \
 		gnupg2 && \
 	echo "deb http://cran.ma.imperial.ac.uk/bin/linux/debian buster-cran40/" >> /etc/apt/sources.list && \
