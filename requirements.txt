@@ -269,7 +269,7 @@ pure-eval==0.2.2
     # via stack-data
 pycparser==2.20
     # via cffi
-pygments==2.7.4
+pygments==2.15.0
     # via
     #   ipython
     #   jupyterlab-pygments
