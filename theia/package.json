@@ -17,22 +17,22 @@
     }
   },
   "dependencies": {
-    "@theia/callhierarchy": "^1.33.0",
-    "@theia/file-search": "^1.33.0",
-    "@theia/git": "^1.33.0",
-    "@theia/markers": "^1.33.0",
-    "@theia/messages": "^1.33.0",
-    "@theia/navigator": "^1.33.0",
-    "@theia/outline-view": "^1.33.0",
-    "@theia/plugin-ext-vscode": "^1.33.0",
-    "@theia/preferences": "^1.33.0",
-    "@theia/preview": "^1.33.0",
-    "@theia/search-in-workspace": "^1.33.0",
-    "@theia/terminal": "^1.33.0",
-    "@theia/vsx-registry": "^1.33.0"
+    "@theia/callhierarchy": "^1.40.0",
+    "@theia/file-search": "^1.40.0",
+    "@theia/git": "^1.40.0",
+    "@theia/markers": "^1.40.0",
+    "@theia/messages": "^1.40.0",
+    "@theia/navigator": "^1.40.0",
+    "@theia/outline-view": "^1.40.0",
+    "@theia/plugin-ext-vscode": "^1.40.0",
+    "@theia/preferences": "^1.40.0",
+    "@theia/preview": "^1.40.0",
+    "@theia/search-in-workspace": "^1.40.0",
+    "@theia/terminal": "^1.40.0",
+    "@theia/vsx-registry": "^1.40.0"
   },
   "devDependencies": {
-    "@theia/cli": "^1.33.0"
+    "@theia/cli": "^1.40.0"
   },
   "resolutions": {
     "**/loader-utils": "^2.0.3",

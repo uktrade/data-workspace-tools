@@ -47,8 +47,6 @@ charset-normalizer==3.1.0
     # via requests
 click==8.1.3
     # via quart
-click8==8.0.1
-    # via git-lfs-http-mirror
 cycler==0.10.0
     # via matplotlib
 cython==0.29.27
@@ -67,7 +65,7 @@ fastjsonschema==2.16.2
     # via nbformat
 fonttools==4.29.1
     # via matplotlib
-git-lfs-http-mirror==0.0.3
+git-lfs-http-mirror==0.0.4
     # via -r requirements.in
 h11==0.14.0
     # via
