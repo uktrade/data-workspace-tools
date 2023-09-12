@@ -96,7 +96,6 @@ RUN \
 
 RUN \
     /root/python-setup.sh && \
-    jupyter lab build && \
     chown -R jovyan:jovyan /usr/local && \
     chown -R jovyan:jovyan /opt/conda
 
