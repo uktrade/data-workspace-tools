@@ -5,6 +5,7 @@ ipython-sql
 ipython
 ipywidgets
 jupyterlab
+jupyter-resource-usage
 notebook
 numpy
 pandas

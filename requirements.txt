@@ -180,9 +180,12 @@ jupyter-events==0.7.0
     # via jupyter-server
 jupyter-lsp==2.2.0
     # via jupyterlab
+jupyter-resource-usage==1.0.1
+    # via -r requirements.in
 jupyter-server==2.7.3
     # via
     #   jupyter-lsp
+    #   jupyter-resource-usage
     #   jupyterlab
     #   jupyterlab-server
     #   notebook
@@ -272,11 +275,15 @@ prettytable==3.8.0
 priority==2.0.0
     # via hypercorn
 prometheus-client==0.17.1
-    # via jupyter-server
+    # via
+    #   jupyter-resource-usage
+    #   jupyter-server
 prompt-toolkit==3.0.39
     # via ipython
 psutil==5.9.5
-    # via ipykernel
+    # via
+    #   ipykernel
+    #   jupyter-resource-usage
 psycopg2-binary==2.9.7
     # via -r requirements.in
 ptyprocess==0.7.0
@@ -309,6 +316,7 @@ pyzmq==25.1.1
     # via
     #   ipykernel
     #   jupyter-client
+    #   jupyter-resource-usage
     #   jupyter-server
 quart==0.18.4
     # via git-lfs-http-mirror
