@@ -6,10 +6,13 @@
 #
 aiofiles==23.2.1
     # via quart
+aiosqlite==0.19.0
+    # via ypy-websocket
 anyio==4.0.0
     # via
     #   httpcore
     #   jupyter-server
+    #   ypy-websocket
 appnope==0.1.3
     # via
     #   ipykernel
@@ -111,6 +114,7 @@ importlib-metadata==6.8.0
     # via
     #   jupyter-client
     #   jupyter-lsp
+    #   jupyter-ydoc
     #   jupyterlab
     #   jupyterlab-server
     #   nbconvert
@@ -157,6 +161,7 @@ jsonpointer==2.4
     # via jsonschema
 jsonschema[format-nongpl]==4.19.0
     # via
+    #   jupyter-collaboration
     #   jupyter-events
     #   jupyterlab-server
     #   nbformat
@@ -167,6 +172,8 @@ jupyter-client==8.3.1
     #   ipykernel
     #   jupyter-server
     #   nbclient
+jupyter-collaboration==1.2.0
+    # via -r requirements.in
 jupyter-core==5.3.1
     # via
     #   ipykernel
@@ -177,21 +184,30 @@ jupyter-core==5.3.1
     #   nbconvert
     #   nbformat
 jupyter-events==0.7.0
-    # via jupyter-server
+    # via
+    #   jupyter-collaboration
+    #   jupyter-server
+    #   jupyter-server-fileid
 jupyter-lsp==2.2.0
     # via jupyterlab
 jupyter-resource-usage==1.0.1
     # via -r requirements.in
 jupyter-server==2.7.3
     # via
+    #   jupyter-collaboration
     #   jupyter-lsp
     #   jupyter-resource-usage
+    #   jupyter-server-fileid
     #   jupyterlab
     #   jupyterlab-server
     #   notebook
     #   notebook-shim
+jupyter-server-fileid==0.9.0
+    # via jupyter-collaboration
 jupyter-server-terminals==0.4.4
     # via jupyter-server
+jupyter-ydoc==1.0.2
+    # via jupyter-collaboration
 jupyterlab==4.0.5
     # via
     #   -r requirements.in
@@ -430,6 +446,12 @@ widgetsnbextension==4.0.8
     # via ipywidgets
 wsproto==1.2.0
     # via hypercorn
+y-py==0.6.0
+    # via
+    #   jupyter-ydoc
+    #   ypy-websocket
+ypy-websocket==0.12.3
+    # via jupyter-collaboration
 zipp==3.16.2
     # via
     #   importlib-metadata
