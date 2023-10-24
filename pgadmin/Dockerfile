@@ -1,4 +1,4 @@
-FROM dpage/pgadmin4:4.27
+FROM dpage/pgadmin4:7.6
 
 ENV \
 	PGADMIN_LISTEN_ADDRESS=0.0.0.0 \
@@ -10,9 +10,5 @@ COPY pgadmin/pgadmin-config.py /pgadmin4/config_local.py
 COPY pgadmin/start.sh /
 
 USER root
-RUN \
-	usermod -u 4357 pgadmin && \
-	groupmod -g 4356 pgadmin && \
-	chmod +x /start.sh
 
 ENTRYPOINT ["/start.sh"]
