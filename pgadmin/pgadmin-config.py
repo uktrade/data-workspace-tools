@@ -113,7 +113,7 @@ env = normalise_environment(os.environ)
 
 servers = {}
 passwords = []
-passfile = "/pgadmin4/.pgpass"
+passfile = "/pgpass"
 
 for i, (name, dsn) in enumerate(env["DATABASE_DSN"].items()):
     user = re.search(r"user=([a-z0-9_]+)", dsn).groups()[0]
