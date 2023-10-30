@@ -2,6 +2,7 @@ import itertools
 import json
 import os
 import re
+import logging
 
 
 # We are running behind a proxy that handles authentication
@@ -10,6 +11,11 @@ MASTER_PASSWORD_REQUIRED = False
 
 # We don't have internet access
 UPGRADE_CHECK_ENABLED = False
+
+CONSOLE_LOG_LEVEL = logging.DEBUG
+CONSOLE_LOG_FORMAT = '%(asctime)s: %(levelname)s\t%(name)s:\t%(message)s'
+FILE_LOG_LEVEL = logging.DEBUG
+FILE_LOG_FORMAT = '%(asctime)s: %(levelname)s\t%(name)s:\t%(message)s'
 
 
 def normalise_environment(key_values):
@@ -115,7 +121,7 @@ servers = {}
 passwords = []
 passfile = "/pgadmin4/.pgpass"
 
-for i, (name, dsn) in enumerate(env["DATABASE_DSN"].items()):
+for i, (name, dsn) in enumerate(env.get("DATABASE_DSN", {}).items()):
     user = re.search(r"user=([a-z0-9_]+)", dsn).groups()[0]
     password = re.search(r"password=([a-zA-Z0-9_]+)", dsn).groups()[0]
     port = re.search(r"port=(\d+)", dsn).groups()[0]
