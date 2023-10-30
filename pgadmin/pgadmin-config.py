@@ -2,6 +2,7 @@ import itertools
 import json
 import os
 import re
+import logging
 
 
 # We are running behind a proxy that handles authentication
@@ -10,6 +11,16 @@ MASTER_PASSWORD_REQUIRED = False
 
 # We don't have internet access
 UPGRADE_CHECK_ENABLED = False
+
+CONSOLE_LOG_LEVEL = logging.DEBUG
+FILE_LOG_LEVEL = logging.DEBUG
+
+# Log format.
+CONSOLE_LOG_FORMAT = '%(asctime)s: %(levelname)s\t%(name)s:\t%(message)s'
+FILE_LOG_FORMAT = '%(asctime)s: %(levelname)s\t%(name)s:\t%(message)s'
+
+# Log file name
+# LOG_FILE = '/desired/path/to/pgadmin4.log'
 
 
 def normalise_environment(key_values):
