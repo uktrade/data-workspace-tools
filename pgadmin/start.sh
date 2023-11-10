@@ -4,16 +4,13 @@ chown -R pgadmin:pgadmin /home/pgadmin
 
 set -e
 
-# Typically, we use set the owner of files/folders (not in the home directory)
-# in the Dockerfile. However, we've changed the ID of the pgadmin user,
-# and changing to the same owner but a different ID doesn't seem to get
-# properly saved when done from the Dockerfile. So, we do it here.
 touch /pgadmin4/.pgpass /pgadmin4/servers.json
 chown -R pgadmin:pgadmin \
-	/pgadmin4/config_distro.py \
 	/pgadmin4/.pgpass \
 	/pgadmin4/servers.json \
 	/var/lib/pgadmin \
 	/var/log/pgadmin
 
-sudo -E -H -u pgadmin /entrypoint.sh
+python3 /usr/local/lib/python3.11/site-packages/pgadmin4/setup.py --load-servers /pgadmin4/servers.json
+
+sudo -E -H -u pgadmin gunicorn --bind 0.0.0.0:8888 --workers=1 --threads=25 --chdir /usr/local/lib/python3.11/site-packages/pgadmin4 pgAdmin4:app
