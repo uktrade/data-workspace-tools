@@ -40,7 +40,9 @@
     "socket.io-parser": "4.2.3",
     "semver": "^7.5.3",
     "get-func-name": "^2.0.1",
-    "postcss": "^8.4.31"
+    "postcss": "^8.4.31",
+    "axios-cookiejar-support": "^4.0.7",
+    "nano": "^10.1.2"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build && yarn run download:plugins",
