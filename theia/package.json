@@ -38,7 +38,9 @@
     "**/loader-utils": "^2.0.3",
     "engine.io": "6.4.2",
     "socket.io-parser": "4.2.3",
-    "semver": "7.5.3"
+    "semver": "^7.5.3",
+    "get-func-name": "^2.0.1",
+    "postcss": "^8.4.31"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build && yarn run download:plugins",
