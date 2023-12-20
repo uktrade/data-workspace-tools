@@ -10,10 +10,6 @@ anyio==4.0.0
     # via
     #   httpcore
     #   jupyter-server
-appnope==0.1.3
-    # via
-    #   ipykernel
-    #   ipython
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -68,6 +64,10 @@ decorator==5.1.1
     # via ipython
 defusedxml==0.7.1
     # via nbconvert
+exceptiongroup==1.2.0
+    # via
+    #   anyio
+    #   ipython
 executing==1.2.0
     # via stack-data
 fastjsonschema==2.18.0
@@ -78,6 +78,8 @@ fqdn==1.5.1
     # via jsonschema
 git-lfs-http-mirror==0.0.6
     # via -r requirements.in
+greenlet==3.0.2
+    # via sqlalchemy
 h11==0.14.0
     # via
     #   httpcore
@@ -103,6 +105,16 @@ idna==3.4
     #   httpx
     #   jsonschema
     #   requests
+importlib-metadata==7.0.0
+    # via
+    #   jupyter-client
+    #   jupyter-lsp
+    #   jupyterlab
+    #   jupyterlab-server
+    #   nbconvert
+    #   quart
+importlib-resources==6.1.1
+    # via matplotlib
 ipykernel==6.25.2
     # via jupyterlab
 ipympl==0.9.3
@@ -162,13 +174,13 @@ jupyter-core==5.3.1
     #   nbclient
     #   nbconvert
     #   nbformat
-jupyter-events==0.7.0
+jupyter-events==0.9.0
     # via jupyter-server
 jupyter-lsp==2.2.0
     # via jupyterlab
 jupyter-resource-usage==1.0.1
     # via -r requirements.in
-jupyter-server==2.7.3
+jupyter-server==2.11.2
     # via
     #   jupyter-lsp
     #   jupyter-resource-usage
@@ -357,6 +369,10 @@ terminado==0.17.1
     #   jupyter-server-terminals
 tinycss2==1.2.1
     # via nbconvert
+tomli==2.0.1
+    # via
+    #   hypercorn
+    #   jupyterlab
 tornado==6.3.3
     # via
     #   ipykernel
@@ -382,7 +398,10 @@ traitlets==5.9.0
     #   nbconvert
     #   nbformat
 typing-extensions==4.7.1
-    # via sqlalchemy
+    # via
+    #   async-lru
+    #   ipython
+    #   sqlalchemy
 tzdata==2023.3
     # via pandas
 uri-template==1.3.0
@@ -409,3 +428,7 @@ widgetsnbextension==4.0.8
     # via ipywidgets
 wsproto==1.2.0
     # via hypercorn
+zipp==3.17.0
+    # via
+    #   importlib-metadata
+    #   importlib-resources
