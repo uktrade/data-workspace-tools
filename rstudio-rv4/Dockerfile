@@ -104,7 +104,8 @@ RUN \
 	echo 'CRAN_1=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/' >> /etc/rstudio/repos.conf && \
 	echo 'session-timeout-minutes=0' >> /etc/rstudio/rsession.conf && \
 	echo 'session-save-action-default=no' >> /etc/rstudio/rsession.conf && \
-	Rscript -e 'install.packages("/exploretiva", repos=NULL, type="source")' && \
+    echo 'session-env-var-save-blacklist=DATABASE_DSN__datasets_1:PGUSER' && \
+    Rscript -e 'install.packages("/exploretiva", repos=NULL, type="source")' && \
 	Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse", "devtools", "plotly", "shiny", "leaflet", "shinydashboard", "sf", "shinycssloaders"), repos=c("https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/", "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"), clean=TRUE)'
 
 COPY rstudio-rv4/rstudio-start.sh /
