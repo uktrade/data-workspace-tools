@@ -43,7 +43,7 @@ RUN \
 		gfortran=4:8.3.0-1 \
 		git=1:2.20.1-2+deb10u3 \
 		libgit2-dev=0.27.7+dfsg.1-0.2+deb10u1 \
-		libgsl-dev=2.5+dfsg-6 \
+		libgsl-dev=2.5+dfsg-6+deb10u1 \
 		libxml2-dev \
 		libpq-dev \
 		libgdal-dev \
