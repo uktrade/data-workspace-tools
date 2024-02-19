@@ -1,4 +1,4 @@
-FROM debian:bullseye-20220328
+FROM debian:bullseye-20240211
 
 RUN \
 	apt-get update && \
@@ -43,7 +43,7 @@ RUN \
 		sudo \
 		pkg-config \
 		libsecret-1-dev && \
-	curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+	curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     rm /etc/apt/sources.list.d/nodesource.list && \
     rm -rf /var/lib/apt/lists/*
