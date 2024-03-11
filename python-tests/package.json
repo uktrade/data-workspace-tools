@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "python_tests",
+    "version": "0.0.1",
+    "description": "To use as executor in Gitlab Runner",
+    "author": "Department for Business and Trade",
+    "main": "",
+    "files": [
+    ],
+    "keywords": [
+      "ptyhon-tests",
+      "gitlab-runner",
+    ],
+    "scripts": {},
+    "dependencies": {
+    },
+    "devDependencies": {}
+  }
+  
