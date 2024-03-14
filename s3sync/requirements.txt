@@ -23,7 +23,7 @@ idna==3.4
     # via
     #   anyio
     #   rfc3986
-mobius3==0.0.41
+mobius3==0.0.42
     # via -r requirements.in
 rfc3986[idna2008]==1.5.0
     # via httpx
