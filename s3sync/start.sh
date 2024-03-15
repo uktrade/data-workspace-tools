@@ -19,6 +19,9 @@ sudo -E -u s3sync mobius3 \
     https://s3-${S3_REGION}.amazonaws.com/{}/ \
     ${S3_REGION} \
     --prefix ${S3_PREFIX} \
+    --cloudwatch-monitoring-endpoint=https://monitoring.${CLOUDWATCH_MONITORING_REGION}.amazonaws.com/ \
+    --cloudwatch-monitoring-region=${CLOUDWATCH_MONITORING_REGION} \
+    --cloudwatch-monitoring-namespace=${CLOUDWATCH_MONITORING_NAMESPACE} \
     --log-level INFO \
     --credentials-source ecs-container-endpoint \
     --exclude-remote '(.*(/|^)\.checkpoints/)|(.*(/|^)bigdata/.*)' \
