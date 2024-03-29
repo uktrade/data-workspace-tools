@@ -39,7 +39,7 @@ RUN \
 	cd .. && \
 	rm -r -f v0.9.0.tar.gz
 
-COPY index.html /webroot/index.html
+COPY remotedesktop/index.html /webroot/index.html
 
 RUN gzip -c /webroot/index.html > /webroot/index.html.gz
 
@@ -50,8 +50,8 @@ RUN \
 	touch /var/run/nginx.pid && \
 	chown dw:dw /var/run/nginx.pid
 
-COPY start.sh nginx.conf org.qgis.qgis.desktop gretl.desktop /
-COPY lxqt /etc/xdg/lxqt
+COPY remotedesktop/start.sh remotedesktop/nginx.conf remotedesktop/org.qgis.qgis.desktop remotedesktop/gretl.desktop /
+COPY remotedesktop/lxqt /etc/xdg/lxqt
 
 ENV \
 	USER=dw
