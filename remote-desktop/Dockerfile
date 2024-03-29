@@ -18,10 +18,14 @@ RUN \
 		software-properties-common \
 		gzip \
 		gretl \
-		wget && \
-	wget -qO - https://qgis.org/downloads/qgis-2021.gpg.key | gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/qgis-archive.gpg --import && \
-	chmod a+r /etc/apt/trusted.gpg.d/qgis-archive.gpg && \
-	add-apt-repository "deb https://qgis.org/ubuntu $(lsb_release -c -s) main" && \
+		python3-setuptools \
+		wget
+
+RUN \
+	wget -O - https://download.qgis.org/downloads/qgis-2022.gpg.key | gpg --import && \
+	gpg --export --armor D155B8E6A419C5BE | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/qgis-archive.gpg --import && \
+	sudo chmod a+r /etc/apt/trusted.gpg.d/qgis-archive.gpg && \
+	add-apt-repository "deb https://qgis.org/debian $(lsb_release -c -s) main" && \
 	apt update && \
 	apt install qgis qgis-plugin-grass -y && \
 	apt-get clean && \
