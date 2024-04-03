@@ -10,10 +10,6 @@ anyio==4.0.0
     # via
     #   httpcore
     #   jupyter-server
-appnope==0.1.4
-    # via
-    #   ipykernel
-    #   ipython
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -83,6 +79,8 @@ fqdn==1.5.1
     # via jsonschema
 git-lfs-http-mirror==0.0.7
     # via -r requirements.in
+greenlet==3.0.3
+    # via sqlalchemy
 h11==0.14.0
     # via
     #   httpcore
@@ -258,7 +256,7 @@ pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pillow==10.2.0
+pillow==10.3.0
     # via
     #   ipympl
     #   matplotlib
