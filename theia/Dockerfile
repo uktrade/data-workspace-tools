@@ -102,7 +102,10 @@ RUN \
 	echo "root ALL=(ALL:ALL) ALL" > /etc/sudoers && \
 	echo "theia ALL=NOPASSWD:/usr/bin/dw-install" >> /etc/sudoers && \
 	echo 'PS1="\w\\\\$ \[$(tput sgr0)\]"' >> /etc/bash.bashrc && \
-	rm /home/theia/.bashrc
+	echo "conda activate base" >> /etc/profile && \
+	ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+	rm /home/theia/.bashrc && \
+	rm /home/theia/.profile
 
 RUN \
 	mkdir /certs
