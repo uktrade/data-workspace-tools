@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN \
 	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye main" > /etc/apt/sources.list && \
-	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ bullseye/updates main" >> /etc/apt/sources.list && \
+	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ bullseye-security main" >> /etc/apt/sources.list && \
 	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye-updates main" >> /etc/apt/sources.list && \
 	echo "Acquire{Check-Valid-Until false; Retries 10;}" >> /etc/apt/apt.conf && \
     echo "Acquire { https::Verify-Peer false }" > /etc/apt/apt.conf.d/99verify-peer.conf && \
