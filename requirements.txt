@@ -137,7 +137,7 @@ itsdangerous==2.1.2
     #   quart
 jedi==0.19.0
     # via ipython
-jinja2==3.1.3
+jinja2==3.1.4
     # via
     #   flask
     #   jupyter-server
