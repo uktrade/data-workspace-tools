@@ -56,8 +56,8 @@ RUN \
 
 RUN \
 	mkdir -p "$CONDA_DIR" && \
-	curl https://repo.anaconda.com/miniconda/Miniconda3-py39_4.11.0-Linux-x86_64.sh --output /root/miniconda.sh && \
-	echo "4ee9c3aa53329cd7a63b49877c0babb49b19b7e5af29807b793a76bdb1d362b4 /root/miniconda.sh" | sha256sum --check --status && \
+	curl https://repo.anaconda.com/miniconda/Miniconda3-py39_24.3.0-0-Linux-x86_64.sh --output /root/miniconda.sh && \
+	echo "1c3d44e987dc56c7d8954419fa1a078be5ddbc293d8cb98b184a23f9a270faad /root/miniconda.sh" | sha256sum --check --status && \
 	bash /root/miniconda.sh -f -b -p "$CONDA_DIR" && \
 	echo 'channels:' > /opt/conda/.condarc && \
 	echo '  - https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/conda-forge/' >> /opt/conda/.condarc && \
