@@ -49,9 +49,9 @@ RUN \
 		libgdal-dev \
 		lmodern \
 		procps \
-		r-base-dev=4.3.3-2~bullseyecran.0 \
-		r-base=4.3.3-2~bullseyecran.0 \
-		r-recommended=4.3.3-2~bullseyecran.0 \
+		r-base-dev=4.4.0-2~bullseyecran.0 \
+		r-base=4.4.0-2~bullseyecran.0 \
+		r-recommended=4.4.0-2~bullseyecran.0 \
 		ssh \
 		texlive \
 		texlive-latex-extra \
