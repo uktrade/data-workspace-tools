@@ -94,7 +94,8 @@ RUN \
 	echo 'www-port=8888' >> /etc/rstudio/rserver.conf && \
 	echo 'auth-none=1' >> /etc/rstudio/rserver.conf && \
 	echo 'server-daemonize=0' >> /etc/rstudio/rserver.conf && \
-	echo 'local({' > /usr/lib/R/etc/Rprofile.site && \
+	echo 'readRenviron("/usr/lib/R/etc/Renviron.site")' > /usr/lib/R/etc/Rprofile.site && \
+	echo 'local({' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r = getOption("repos")' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r["CRAN"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/"' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r["CRAN_1"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
@@ -122,6 +123,7 @@ RUN \
 	echo "root ALL=(ALL:ALL) ALL" > /etc/sudoers && \
 	echo "rstudio ALL=NOPASSWD:/usr/bin/dw-install" >> /etc/sudoers && \
 	echo 'PS1="\[\033[01;34m\]\w\[\033[00m\]\$ "' >> /etc/bash.bashrc && \
+	echo 'export PATH="/home/rstudio/.local/bin:$PATH"' >> /etc/bash.bashrc && \
 	rm /home/rstudio/.bashrc
 
 COPY dw-install /usr/bin/dw-install
