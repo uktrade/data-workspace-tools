@@ -103,6 +103,7 @@ RUN \
 	echo '})' >> /usr/lib/R/etc/Rprofile.site && \
 	echo 'CRAN=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/' >> /etc/rstudio/repos.conf && \
 	echo 'CRAN_1=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/' >> /etc/rstudio/repos.conf && \
+	echo 'r-restore-workspace=0' >> /etc/rstudio/rsession.conf && \
 	echo 'session-timeout-minutes=0' >> /etc/rstudio/rsession.conf && \
 	echo 'session-save-action-default=no' >> /etc/rstudio/rsession.conf && \
 	echo 'session-rprofile-on-resume-default=1' >> /etc/rstudio/rsession.conf && \
