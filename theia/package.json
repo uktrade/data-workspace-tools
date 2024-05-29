@@ -50,7 +50,7 @@
   "theiaPluginsDir": "plugins",
   "theiaPlugins": {
     "vscode-builtin-extensions-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.88.1/file/eclipse-theia.builtin-extension-pack-1.88.1.vsix",
-    "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/v2024.6.0/extension.vsixmanifest"
+    "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2022.2.1924087327/ms-python-release.vsix"
   },
   "theiaPluginsExcludeIds": [
     "vscode.debug-auto-launch",
