@@ -94,16 +94,16 @@ RUN \
 	echo 'www-port=8888' >> /etc/rstudio/rserver.conf && \
 	echo 'auth-none=1' >> /etc/rstudio/rserver.conf && \
 	echo 'server-daemonize=0' >> /etc/rstudio/rserver.conf && \
-	echo 'readRenviron("/usr/lib/R/etc/Renviron.site")' > /usr/lib/R/etc/Rprofile.site && \
-	echo 'local({' >> /usr/lib/R/etc/Rprofile.site && \
+	echo 'local({' > /usr/lib/R/etc/Rprofile.site && \
+	echo '	readRenviron("/usr/lib/R/etc/Renviron.site")' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r = getOption("repos")' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r["CRAN"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/"' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  r["CRAN_1"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '  options(repos = r)' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '})' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '' >> /usr/lib/R/etc/Rprofile.site && \
 	echo 'CRAN=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-rv4/' >> /etc/rstudio/repos.conf && \
 	echo 'CRAN_1=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/' >> /etc/rstudio/repos.conf && \
-	echo 'r-restore-workspace=0' >> /etc/rstudio/rsession.conf && \
 	echo 'session-timeout-minutes=0' >> /etc/rstudio/rsession.conf && \
 	echo 'session-save-action-default=no' >> /etc/rstudio/rsession.conf && \
 	echo 'session-rprofile-on-resume-default=1' >> /etc/rstudio/rsession.conf && \
