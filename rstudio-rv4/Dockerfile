@@ -96,12 +96,12 @@ RUN \
 	echo 'server-daemonize=0' >> /etc/rstudio/rserver.conf && \
 	echo 'setHook("rstudio.sessionInit", function(newSession) {' > /usr/lib/R/etc/Rprofile.site && \
 	echo '	if (newSession) {' >> /usr/lib/R/etc/Rprofile.site && \
-  echo '		message("Welcome to RStudio [New Session]")' >> /usr/lib/R/etc/Rprofile.site && \
-  echo '		readRenviron("/usr/lib/R/etc/Renviron.site")' >> /usr/lib/R/etc/Rprofile.site && \
-  echo '  } else {' >> /usr/lib/R/etc/Rprofile.site && \
-  echo '		message("Welcome to RStudio [Restored Session with New Credentials]")' >> /usr/lib/R/etc/Rprofile.site && \
-  echo '		readRenviron("/usr/lib/R/etc/Renviron.site")' >> /usr/lib/R/etc/Rprofile.site && \
-  echo '	}' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '		message("Welcome to RStudio [New Session]")' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '		readRenviron("/usr/lib/R/etc/Renviron.site")' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '  } else {' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '		message("Welcome to RStudio [Restored Session with New Credentials]")' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '		readRenviron("/usr/lib/R/etc/Renviron.site")' >> /usr/lib/R/etc/Rprofile.site && \
+	echo '	}' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '}, action = "append")' >> /usr/lib/R/etc/Rprofile.site && \
 	echo '' >> /usr/lib/R/etc/Rprofile.site && \
 	echo 'local({' >> /usr/lib/R/etc/Rprofile.site && \
