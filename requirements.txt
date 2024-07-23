@@ -333,7 +333,7 @@ rpds-py==0.10.2
     #   referencing
 send2trash==1.8.2
     # via jupyter-server
-sentry-sdk==1.30.0
+sentry-sdk==2.8.0
     # via -r requirements.in
 six==1.16.0
     # via
