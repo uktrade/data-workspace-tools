@@ -92,6 +92,7 @@ RUN \
 RUN \
     echo '[global]' > /etc/pip.conf && \
     echo 'index-url = https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/pypi/' >> /etc/pip.conf && \
+    echo 'extra-index-url = https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/pytorch' >> /etc/pip.conf && \
     echo 'no-cache-dir = false' >> /etc/pip.conf
 
 RUN \
