@@ -138,6 +138,7 @@ for i, (name, dsn) in enumerate(env.get("DATABASE_DSN", {}).items()):
         "SSLMode": "prefer",
         "MaintenanceDB": "postgres",
         "PassFile": passfile,
+        "Timeout": 180,
     }
 
 with open(passfile, "w") as f:
