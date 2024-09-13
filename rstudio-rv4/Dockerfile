@@ -31,6 +31,7 @@ RUN \
 		dirmngr \
 		gnupg2 && \
 	echo "deb http://cran.ma.imperial.ac.uk/bin/linux/debian bullseye-cran40/" >> /etc/apt/sources.list && \
+	echo "deb-src http://cran.ma.imperial.ac.uk/bin/linux/debian bullseye-cran40/" >> /etc/apt/sources.list && \
 	until apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7'; do sleep 10; done && \
 	apt-get clean -y && \
 	apt-get autoremove -y && \
@@ -39,6 +40,7 @@ RUN \
 	rm -rf /var/lib/apt/lists/* && \
 	apt-get update && \
 	apt-get install -y --no-install-recommends \
+		apt-src \
 		gdebi-core \
 		gfortran \
 		git \
@@ -49,9 +51,6 @@ RUN \
 		libgdal-dev \
 		lmodern \
 		procps \
-		r-base-dev=4.4.0-2~bullseyecran.0 \
-		r-base=4.4.0-2~bullseyecran.0 \
-		r-recommended=4.4.0-2~bullseyecran.0 \
 		ssh \
 		texlive \
 		texlive-latex-extra \
@@ -73,6 +72,11 @@ RUN \
 		vim \
 		emacs \
 		wget && \
+	apt-src update && \
+	apt-src --build install \
+		r-base-dev=4.4.0-2~bullseyecran.0 \
+		r-base=4.4.0-2~bullseyecran.0 \
+		r-recommended=4.4.0-2~bullseyecran.0 && \
 	wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2023.03.0-386-amd64.deb && \
 	echo "8dcc6003cce4cf41fbbc0fd2c37c343311bbcbfa377d2e168245ab329df835b5  rstudio-server-2023.03.0-386-amd64.deb" | sha256sum -c && \
 	gdebi --non-interactive rstudio-server-2023.03.0-386-amd64.deb && \
