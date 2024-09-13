@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bullseye-20240812
 
 RUN \
 	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye main" > /etc/apt/sources.list && \
@@ -72,7 +72,8 @@ RUN \
 		man-db \
 		vim \
 		emacs \
-		wget && \
+		wget \
+		direnv && \
 	wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2023.03.0-386-amd64.deb && \
 	echo "8dcc6003cce4cf41fbbc0fd2c37c343311bbcbfa377d2e168245ab329df835b5  rstudio-server-2023.03.0-386-amd64.deb" | sha256sum -c && \
 	gdebi --non-interactive rstudio-server-2023.03.0-386-amd64.deb && \

@@ -1,4 +1,4 @@
-FROM debian:bullseye-20240211
+FROM debian:bullseye-20240812
 
 RUN \
 	apt-get update && \
@@ -42,7 +42,8 @@ RUN \
 		procps \
 		sudo \
 		pkg-config \
-		libsecret-1-dev && \
+		libsecret-1-dev \
+		direnv && \
 	curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     rm /etc/apt/sources.list.d/nodesource.list && \

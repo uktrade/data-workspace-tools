@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bullseye-20240812
 
 RUN \
     apt-get update && \
@@ -16,7 +16,6 @@ ENV \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
-    LD_LIBRARY_PATH=/lib \
     CONDA_DIR=/opt/conda
 
 ENV \
@@ -32,7 +31,8 @@ RUN \
         ssh \
         vim \
         emacs \
-        wget && \
+        wget \
+        direnv && \
     echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye main" > /etc/apt/sources.list && \
     echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye-updates main" >> /etc/apt/sources.list && \
     echo "Acquire{Check-Valid-Until false; Retries 10;}" >> /etc/apt/apt.conf && \
