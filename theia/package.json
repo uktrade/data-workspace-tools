@@ -29,16 +29,11 @@
     "@theia/preview": "^1.46.1",
     "@theia/search-in-workspace": "^1.46.1",
     "@theia/terminal": "^1.46.1",
-    "@theia/vsx-registry": "^1.46.1"
+    "@theia/vsx-registry": "^1.46.1",
+    "node-gyp": "^10.2.0"
   },
   "devDependencies": {
     "@theia/cli": "^1.46.1"
-  },
-  "resolutions": {
-    "**/axios": "^1.6.7",
-    "**/axios-cookiejar-support": "^4.0.7",
-    "**/nano": "^10.1.2",
-    "**/msgpackr": "^1.10.1"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build && yarn run download:plugins",
@@ -93,5 +88,6 @@
     "ms-vscode.references-view",
     "ms-vscode.js-debug-companion",
     "ms-vscode.js-debug"
-  ]
+  ],
+  "packageManager": "yarn@4.5.0"
 }

@@ -77,8 +77,6 @@ RUN \
     chown -R theia:theia /opt/conda
 
 WORKDIR /root
-RUN \
-    curl -o- -L https://yarnpkg.com/install.sh | bash
 
 ENV \
 	PATH="/root/.yarn/bin:/root/node_modules/.bin:$PATH"
@@ -87,6 +85,7 @@ COPY theia/package.json /root
 COPY theia/yarn.lock /root
 
 RUN \
+	corepack enable && \
 	yarn install && \
 	yarn theia download:plugins && \
 	yarn theia build && \
