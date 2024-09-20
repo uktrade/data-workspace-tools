@@ -89,5 +89,5 @@
     "ms-vscode.js-debug-companion",
     "ms-vscode.js-debug"
   ],
-  "packageManager": "yarn@4.5.0"
+  "packageManager": "yarn@3.8.5"
 }
