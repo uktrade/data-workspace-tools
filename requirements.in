@@ -10,5 +10,6 @@ notebook
 numpy
 pandas
 psycopg2-binary
+python-arango
 sentry-sdk
 SQLAlchemy
