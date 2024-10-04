@@ -1,0 +1,4 @@
+{
+  "python.defaultInterpreterPath": "/opt/conda/bin/python3",
+  "r.rpath.linux": "/opt/conda/bin/R"
+}
