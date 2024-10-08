@@ -6,6 +6,8 @@ eval "$(fixuid -q)"
 
 echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
+chown -R coder:coder /usr/lib/code-server
+chown -R :coder /var
 mkdir -p /home/coder/.local/share/code-server/User/
 cp /opt/code-server/settings.json /home/coder/.local/share/code-server/User/settings.json
 chown -R coder:coder /home/coder
@@ -23,7 +25,9 @@ if [ "${DOCKER_USER-}" ]; then
   fi
 fi
 
-su - coder -c "exec dumb-init /usr/bin/code-server \
+export ENV_VARS=$(env | grep -v '^HOME=' | awk -F= '{printf "%s=\"%s\" ", $1, $2}' | sed 's/ $//')
+
+su - coder -c "$ENV_VARS exec dumb-init /usr/bin/code-server \
   --config /opt/code-server/config.yaml \
   --bind-addr 0.0.0.0:8888 \
   /home/coder"

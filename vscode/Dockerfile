@@ -25,10 +25,7 @@ apt-get install -y --no-install-recommends \
 ca-certificates \
 dirmngr \
 gnupg2 && \
-rm -rf /var/lib/apt/lists/* && \
-echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye main" > /etc/apt/sources.list && \
-echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye-updates main" >> /etc/apt/sources.list && \
-echo "Acquire{Check-Valid-Until false; Retries 10;}" >> /etc/apt/apt.conf
+rm -rf /var/lib/apt/lists/*
  
 RUN apt-get update && \
 apt-get install -y \
@@ -45,7 +42,12 @@ pkg-config \
 jq \
 libsecret-1-dev \
 postgresql-client && \
-rm -rf /var/lib/apt/lists/*
+rm -rf /var/lib/apt/lists/* && \
+echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye main" > /etc/apt/sources.list && \
+echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye-updates main" >> /etc/apt/sources.list && \
+echo "Acquire{Check-Valid-Until false; Retries 10;}" >> /etc/apt/apt.conf && \
+until apt-key adv --keyserver pgp.mit.edu --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'; do sleep 10; done && \
+rm -rf /etc/apt/sources.list.d/*
 
 RUN \
 mkdir -p "$CONDA_DIR" && \
