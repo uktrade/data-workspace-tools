@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # When on EFS, we expect to not be able to change ownership, and we don't need to
-chown -R theia:theia /home/theia
+chown -R dw-user:dw-user /home/dw-user
 
 set -e
 
@@ -10,7 +10,8 @@ echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
 export PGSSLROOTCERT=/certs/rds-global-bundle.pem
 
-sudo -E -H -u theia yarn theia start /home/theia \
+cd /root
+sudo -E -H -u dw-user yarn theia start /home/dw-user \
 	--plugins=local-dir:/root/plugins \
 	--hostname=0.0.0.0 \
 	--port=8888 \

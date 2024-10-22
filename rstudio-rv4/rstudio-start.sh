@@ -3,14 +3,14 @@
 mkdir -p /etc/rstudio/connections
 
 # When on EFS, we expect to not be able to change ownership, and we don't need to
-chown -R rstudio:rstudio /home/rstudio
+chown -R dw-user:dw-user /home/dw-user
 
 set -e
 
 # A previous version of this script wrote environment variables to this file,
 # which was synced between container starts. Deleting to ensure we don't
 # incorrectly use old values
-rm -f /home/rstudio/.Renviron
+rm -f /home/dw-user/.Renviron
 
 while IFS='=' read -r name value ; do
   if [[ $name == *'DATABASE_DSN__'* ]]; then
@@ -47,4 +47,4 @@ echo "PGDATABASE='${PGDATABASE}'" >> /etc/R/Renviron.site
 echo "PGUSER='${PGUSER}'" >> /etc/R/Renviron.site
 echo "PGPASSWORD='${PGPASSWORD}'" >> /etc/R/Renviron.site
 
-exec /usr/lib/rstudio-server/bin/rserver --server-daemonize=0 --server-user=rstudio
+exec /usr/lib/rstudio-server/bin/rserver --server-daemonize=0 --server-user=dw-user
