@@ -17,28 +17,23 @@
     }
   },
   "dependencies": {
-    "@theia/callhierarchy": "^1.46.1",
-    "@theia/file-search": "^1.46.1",
-    "@theia/git": "^1.46.1",
-    "@theia/markers": "^1.46.1",
-    "@theia/messages": "^1.46.1",
-    "@theia/navigator": "^1.46.1",
-    "@theia/outline-view": "^1.46.1",
-    "@theia/plugin-ext-vscode": "^1.46.1",
-    "@theia/preferences": "^1.46.1",
-    "@theia/preview": "^1.46.1",
-    "@theia/search-in-workspace": "^1.46.1",
-    "@theia/terminal": "^1.46.1",
-    "@theia/vsx-registry": "^1.46.1"
+    "@theia/callhierarchy": "^1.53.2",
+    "@theia/file-search": "^1.53.2",
+    "@theia/git": "^1.53.2",
+    "@theia/markers": "^1.53.2",
+    "@theia/messages": "^1.53.2",
+    "@theia/navigator": "^1.53.2",
+    "@theia/outline-view": "^1.53.2",
+    "@theia/plugin-ext-vscode": "^1.53.2",
+    "@theia/preferences": "^1.53.2",
+    "@theia/preview": "^1.53.2",
+    "@theia/search-in-workspace": "^1.53.2",
+    "@theia/terminal": "^1.53.2",
+    "@theia/vsx-registry": "^1.53.2",
+    "node-gyp": "^10.2.0"
   },
   "devDependencies": {
     "@theia/cli": "^1.46.1"
-  },
-  "resolutions": {
-    "**/axios": "^1.6.7",
-    "**/axios-cookiejar-support": "^4.0.7",
-    "**/nano": "^10.1.2",
-    "**/msgpackr": "^1.10.1"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build && yarn run download:plugins",
@@ -49,7 +44,7 @@
   },
   "theiaPluginsDir": "plugins",
   "theiaPlugins": {
-    "vscode-builtin-extensions-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.50.1/file/eclipse-theia.builtin-extension-pack-1.50.1.vsix",
+    "vscode-builtin-extensions-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.88.1/file/eclipse-theia.builtin-extension-pack-1.88.1.vsix",
     "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.8.109390/ms-python-release.vsix"
   },
   "theiaPluginsExcludeIds": [
@@ -93,5 +88,6 @@
     "ms-vscode.references-view",
     "ms-vscode.js-debug-companion",
     "ms-vscode.js-debug"
-  ]
+  ],
+  "packageManager": "yarn@3.8.5"
 }
