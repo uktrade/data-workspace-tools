@@ -1,7 +1,20 @@
-packages <- list('DBI', 'DT', 'RPostgres', 'aws.ec2metadata', 'aws.s3', 'bizdays', 'countrycode', 'flexdashboard', 'flextable', 'formattable', 'ggraph', 'gifski', 'igraph', 'janitor', 'jsonlite', 'kableExtra', 'leaflet', 'lubridate', 'openxlsx', 'plotly', 'quantmod', 'readxl', 'rgdal', 'rmapshaper', 'rworldmap', 'scales', 'sf', 'shiny', 'stringr', 'topicmodels', 'text2vec', 'tidytext', 'tidyverse', 'tm', 'tmap', 'tmaptools', 'widyr', 'wordcloud2', 'zoo', 'XML')
-folder_name <- "cran-binary-rv4"
+packages <- list(
+  'DBI', 'DT', 'RPostgres', 'aws.ec2metadata', 'aws.s3', 'bizdays', 'countrycode', 'flexdashboard',
+  'flextable', 'formattable', 'ggraph', 'gifski', 'igraph', 'janitor', 'jsonlite', 'kableExtra',
+  'leaflet', 'lubridate', 'openxlsx', 'plotly', 'quantmod', 'readxl', 'rgdal', 'rmapshaper',
+  'rworldmap', 'scales', 'sf', 'shiny', 'stringr', 'topicmodels', 'text2vec', 'tidytext',
+  'tidyverse', 'tm', 'tmap', 'tmaptools', 'widyr', 'wordcloud2', 'zoo', 'XML')
+
+# Compiled R packages should continue to work when the patch version is upgraded, but not
+# when major or minor version is upgraded. So we store compiled packages in a location with
+# the major.minor in the path, but not the patch.
+# https://rstats.wtf/maintaining-r.html#how-to-transfer-your-library-when-updating-r
+folder_name <- paste("cran-binary-", "debian-bullseye", "-r-", getRversion()$major, ".", getRversion()$minor,  sep="")
 file_prefix <- "/src/contrib/"
 bucket_name <- Sys.getenv("MIRRORS_BUCKET_NAME") 
+
+print(folder_name)
+print(bucket_name)
 
 ## Standard packages
 for (package in packages) {

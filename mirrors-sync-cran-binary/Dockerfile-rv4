@@ -1,9 +1,9 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN \
 	apt-get update && \
 	apt-get install -y --no-install-recommends \
-		locales=2.28-10+deb10u1 && \
+		locales && \
 	echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
 	locale-gen en_GB.utf8 && \
 	rm -rf /var/lib/apt/lists/*
@@ -20,11 +20,12 @@ RUN \
 		dirmngr \
 		gnupg2 && \
 	rm -rf /var/lib/apt/lists/* && \
-	echo "deb http://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ buster main" > /etc/apt/sources.list && \
-	echo "deb http://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ buster/updates main" >> /etc/apt/sources.list && \
-	echo "deb http://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ buster-updates main" >> /etc/apt/sources.list && \
-	echo "deb http://cran.ma.imperial.ac.uk/bin/linux/debian buster-cran40/" >> /etc/apt/sources.list && \
+	echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye main" > /etc/apt/sources.list && \
+	echo "deb [trusted=yes] https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ bullseye-security main" >> /etc/apt/sources.list && \
+	echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye-updates main" >> /etc/apt/sources.list && \
+	echo "deb https://cran.ma.imperial.ac.uk/bin/linux/debian bullseye-cran40/" >> /etc/apt/sources.list && \
 	echo "Acquire{Check-Valid-Until false; Retries 10;}" >> /etc/apt/apt.conf && \
+	echo "Acquire { https::Verify-Peer false }" > /etc/apt/apt.conf.d/99verify-peer.conf && \
 	until apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7'; do sleep 10; done && \
 	rm -rf /var/lib/apt/lists/* && \
 	apt-get update && \
@@ -60,15 +61,6 @@ RUN \
 		man-db \
         vim \
         emacs \
-		wget && \
-    wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.12.0-353-amd64.deb && \
-	echo "bb88e37328c304881e60d6205d7dac145525a5c2aaaf9da26f1cb625b7d47e6e  rstudio-server-2022.12.0-353-amd64.deb" | sha256sum -c && \
-	gdebi --non-interactive rstudio-server-2022.12.0-353-amd64.deb && \
-	rm rstudio-server-2022.12.0-353-amd64.deb && \
-	apt-get remove --purge -y \
-		dirmngr \
-		gdebi-core \
-		gnupg2 \
 		wget && \
 	apt-get clean -y && \
 	apt-get autoremove -y && \
