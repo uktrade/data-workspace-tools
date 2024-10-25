@@ -1,9 +1,10 @@
 packages <- list(
-  'DBI', 'DT', 'RPostgres', 'aws.ec2metadata', 'aws.s3', 'bizdays', 'countrycode', 'flexdashboard',
-  'flextable', 'formattable', 'ggraph', 'gifski', 'igraph', 'janitor', 'jsonlite', 'kableExtra',
-  'leaflet', 'lubridate', 'openxlsx', 'plotly', 'quantmod', 'readxl', 'rgdal', 'rmapshaper',
-  'rworldmap', 'scales', 'sf', 'shiny', 'stringr', 'topicmodels', 'text2vec', 'tidytext',
-  'tidyverse', 'tm', 'tmap', 'tmaptools', 'widyr', 'wordcloud2', 'zoo', 'XML')
+  'DBI', 'DT', 'RPostgres', 'aws.ec2metadata', 'aws.s3', 'bizdays', 'countrycode', 'devtools',
+  'flexdashboard', 'flextable', 'formattable', 'ggraph', 'gifski', 'igraph', 'janitor', 'jsonlite',
+  'kableExtra', 'leaflet', 'lubridate', 'openxlsx', 'plotly', 'quantmod', 'readxl', 'rgdal',
+  'rmapshaper', 'rworldmap', 'scales', 'sf', 'shiny', 'shinycssloaders', 'shinydashboard',
+  'stringr', 'topicmodels', 'text2vec', 'tidytext', 'tidyverse', 'tm', 'tmap', 'tmaptools',
+  'widyr', 'wordcloud2', 'zoo', 'XML')
 
 # Compiled R packages should continue to work when the patch version is upgraded, but not
 # when major or minor version is upgraded. So we store compiled packages in a location with
