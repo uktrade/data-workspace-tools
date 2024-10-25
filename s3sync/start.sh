@@ -13,6 +13,9 @@ set -e
 # already on the remote _are_ synced to local
 # Exclude .__mobius3_flush__ files locally, since there is a suspected bug
 # in mobius3 where they can end up being uploaded
+# Excluding various config and cache files/folders for remote desktop. The most crucial of these
+# seems to be the .Xauthority file which must not get deleted, otherwise the remote desktop
+# will refuse to open any new windows
 sudo -E -u s3sync mobius3 \
     /home/s3sync/data \
     ${S3_BUCKET} \
@@ -24,7 +27,7 @@ sudo -E -u s3sync mobius3 \
     --cloudwatch-monitoring-namespace=${CLOUDWATCH_MONITORING_NAMESPACE} \
     --log-level INFO \
     --credentials-source ecs-container-endpoint \
-    --exclude-remote '(.*(/|^)\.checkpoints/)|(.*(/|^)bigdata/.*)' \
-    --exclude-local '(.*(/|^)\.__mobius3_flush__.*)|(.*(/|^)bigdata/.*)|.*(/|^)\.vnc/.*' \
+    --exclude-remote '(.*(/|^)\.checkpoints/)|(.*(/|^)bigdata/.*)|(.*(/|^)\.vnc/?.*)|(.*(/|^)\.dbus/?.*)|(.*(/|^)\.config/lxqt?.*)|(.*(/|^)\.cache/openbox?.*)|(.*(/|^)\.config/openbox?.*)|(.*(/|^)\.cache/mesa_shader_cache?.*)|(.*(/|^)\.Xauthority)|(.*(/|^)Desktop/.*\.desktop$)' \
+    --exclude-local '(.*(/|^)\.__mobius3_flush__.*)|(.*(/|^)bigdata/.*)|(.*(/|^)\.vnc/?.*)|(.*(/|^)\.dbus/?.*)|(.*(/|^)\.config/lxqt?.*)|(.*(/|^)\.cache/openbox?.*)|(.*(/|^)\.config/openbox?.*)|(.*(/|^)\.cache/mesa_shader_cache?.*)|(.*(/|^)\.Xauthority)|(.*(/|^)Desktop/.*\.desktop$)' \
     --upload-on-create '^.*/\.git/.*$' \
     --force-ipv4
