@@ -1,8 +1,8 @@
 packages <- list(
   'DBI', 'DT', 'RPostgres', 'aws.ec2metadata', 'aws.s3', 'bizdays', 'countrycode', 'devtools',
   'flexdashboard', 'flextable', 'formattable', 'ggraph', 'gifski', 'igraph', 'janitor', 'jsonlite',
-  'kableExtra', 'leaflet', 'lubridate', 'openxlsx', 'plotly', 'quantmod', 'readxl', 'rgdal',
-  'rmapshaper', 'rworldmap', 'scales', 'sf', 'shiny', 'shinycssloaders', 'shinydashboard',
+  'kableExtra', 'leaflet', 'lubridate', 'openxlsx', 'plotly', 'quantmod', 'readxl', 'renv',
+  'rgdal', 'rmapshaper', 'rworldmap', 'scales', 'sf', 'shiny', 'shinycssloaders', 'shinydashboard',
   'stringr', 'topicmodels', 'text2vec', 'tidytext', 'tidyverse', 'tm', 'tmap', 'tmaptools',
   'widyr', 'wordcloud2', 'zoo', 'XML')
 
