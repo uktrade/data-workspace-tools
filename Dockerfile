@@ -31,10 +31,7 @@ ENV \
     SHELL=/bin/bash \
     USER=dw-user \
     PGSSLROOTCERT=/certs/rds-global-bundle.pem \
-    PGSSLMODE=verify-full \
-    LC_ALL=en_GB.UTF-8 \
-    LANG=en_GB.UTF-8 \
-    LANGUAGE=en_GB.UTF-8
+    PGSSLMODE=verify-full
 
 RUN \
     # Install ca-certificates from our mirror, but we can't verify the HTTPS cert because we don't
@@ -60,7 +57,7 @@ RUN \
         sudo && \
     rm -rf /var/lib/apt/lists/* && \
     echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
-    locale-gen en_GB.utf8 && \
+    locale-gen en_GB.UTF-8 && \
     groupadd -g 4356 dw-user && \
     useradd -u 4357 dw-user -g dw-user -m && \
     echo "root ALL=(ALL:ALL) ALL" > /etc/sudoers && \
@@ -77,6 +74,12 @@ RUN \
     \
     # Avoids errors when installing Java
     mkdir -p /usr/share/man/man1mkdir -p /usr/share/man/man1
+
+# Local variables must be set after local-gen, otherwise local-gen fails
+ENV \
+    LC_ALL=en_GB.UTF-8 \
+    LANG=en_GB.UTF-8 \
+    LANGUAGE=en_GB.UTF-8
 
 COPY rds-global-bundle.pem /certs/
 COPY dw-install glfsm /usr/bin/
