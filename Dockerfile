@@ -30,6 +30,8 @@ ENV \
     DEBIAN_FRONTEND=noninteractive \
     SHELL=/bin/bash \
     USER=dw-user \
+    PGSSLROOTCERT=/certs/rds-global-bundle.pem \
+    PGSSLMODE=verify-full \
     LC_ALL=en_GB.UTF-8 \
     LANG=en_GB.UTF-8 \
     LANGUAGE=en_GB.UTF-8

@@ -8,8 +8,6 @@ set -e
 # Java programs can error if $HOSTNAME is not resolvable
 echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
-export PGSSLROOTCERT=/certs/rds-global-bundle.pem
-
 cd /root
 sudo -E -H -u dw-user yarn theia start /home/dw-user \
 	--plugins=local-dir:/root/plugins \
