@@ -1,8 +1,13 @@
 # Data Workspace Tools
 
-Repository for the Dockerfiles for Data Workspace on-demand tools, although we are in the process of replacing them with a [single multi-stage Dockerfile](./Dockerfile).
+Repository for the Dockerfiles for Data Workspace on-demand tools and related components. Merging the various Dockerfiles to a [single multi-stage Dockerfile](./Dockerfile) is in progress.
 
-Tools can be built and pushed using https://jenkins.ci.uktrade.digital/job/data-workspace-tools/
+With some exceptions, they can be built and pushed using https://jenkins.ci.uktrade.digital/job/data-workspace-tools/
+
+
+## What makes "a tool"?
+
+Any application that can run in Docker and listen on HTTP on port 8888. Data Workspace starts each tool up, and then the Data Workspace proxy routes incoming requests from the user to the tool. Each tool runs under an IAM role specific to each user, which is used to control access to the user's folder(s) in the "notebooks" S3 bucket. In addition, Data Workspace sets various environment variables for credentials, for example the Data Workspace datasets database.
 
 
 ## User
