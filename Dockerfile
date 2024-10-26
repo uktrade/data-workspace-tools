@@ -13,8 +13,9 @@
 # │   └── python-visualisation
 # ├── rv4
 # │   ├── rv4-cran-binary-mirror
-# │   ├── rv4-rstudio
-# │   └── rv4-visualisation
+# │   └── rv4-common-packages
+# │       ├── rv4-rstudio
+# │       └── rv4-visualisation
 # ├── pgadmin
 # ├── remote-desktop
 # ├── s3sync
@@ -288,8 +289,6 @@ RUN \
     echo '})' >> /usr/lib/R/etc/Rprofile.site && \
     echo '' >> /usr/lib/R/etc/Rprofile.site && \
     \
-	Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse", "devtools", "plotly", "shiny", "leaflet", "shinydashboard", "sf", "shinycssloaders"), repos=c("https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-debian-bullseye-r-'$R_VERSION'/", "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"), clean=TRUE)' && \
-    \
     # Allow the run-time user to install R packages
 	chown -R dw-user:dw-user /usr/local/lib/R/site-library && \
     \
@@ -307,9 +306,29 @@ CMD Rscript /home/build.R
 
 
 ###################################################################################################
+# R version 4 with a set of common packages
+
+FROM rv4 AS rv4-common-packages
+
+RUN \
+    # Build in new directory to make cleanup easier
+    mkdir build && \
+    cd build && \
+    \
+    Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse", "devtools", "plotly", "shiny", "leaflet", "shinydashboard", "sf", "shinycssloaders"), clean=TRUE)' && \
+    \
+    # Allow the run-time user to override anything just installed (e.g. with newer versions)
+    chown -R dw-user:dw-user /usr/local/lib/R/site-library \
+    \
+    # Cleanup temporary files
+    cd .. && \
+    rm -r -f build
+
+
+###################################################################################################
 # RStudio
 
-FROM rv4 AS rv4-rstudio
+FROM rv4-common-packages AS rv4-rstudio
 
 RUN \
     # Install RStudio
@@ -349,9 +368,9 @@ CMD ["/rstudio-start.sh"]
 ###################################################################################################
 # R version 4 visualisations
 
-FROM rv4 AS rv4-visualisation
+FROM rv4-common-packages AS rv4-visualisation
 
-# Uses the rv4 base, nothing extra required
+# Uses the rv4-common-packages, nothing extra required
 
 
 ###################################################################################################
