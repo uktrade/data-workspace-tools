@@ -7,7 +7,7 @@ With some exceptions, they can be built and pushed using https://jenkins.ci.uktr
 
 ## What makes a "tool"?
 
-Any application that can run in Docker and listen on HTTP on port 8888. Data Workspace starts each tool up, and then the Data Workspace proxy routes incoming requests from the user to the tool. Each tool runs under an IAM role specific to each user, which is used to control access to the user's folder(s) in the "notebooks" S3 bucket. In addition, Data Workspace sets various environment variables for credentials, for example the Data Workspace datasets database.
+Any application that can run in Docker and listen on HTTP on port 8888. Data Workspace starts each tool up, and then the [Data Workspace proxy](https://github.com/uktrade/data-workspace-frontend/blob/master/dataworkspace/proxy.py) routes incoming requests from the user to the tool. Each tool runs under an IAM role specific to each user, which is used to control access to the user's folder(s) in the "notebooks" S3 bucket. In addition, Data Workspace sets various environment variables for credentials, for example the Data Workspace datasets database.
 
 
 ## User
