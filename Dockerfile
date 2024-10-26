@@ -318,7 +318,7 @@ RUN \
     Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse", "devtools", "plotly", "shiny", "leaflet", "shinydashboard", "sf", "shinycssloaders"), clean=TRUE)' && \
     \
     # Allow the run-time user to override anything just installed (e.g. with newer versions)
-    chown -R dw-user:dw-user /usr/local/lib/R/site-library \
+    chown -R dw-user:dw-user /usr/local/lib/R/site-library && \
     \
     # Cleanup temporary files
     cd .. && \
