@@ -82,8 +82,8 @@ ENV \
     LANG=en_GB.UTF-8 \
     LANGUAGE=en_GB.UTF-8
 
-COPY rds-global-bundle.pem /certs/
-COPY dw-install glfsm /usr/bin/
+COPY base/rds-global-bundle.pem /certs/
+COPY base/dw-install base/glfsm /usr/bin/
 
 WORKDIR /home/dw-user
 
