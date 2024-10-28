@@ -1,8 +1,8 @@
 # Data Workspace Tools
 
-Repository for the Dockerfiles for Data Workspace on-demand tools and related components. Merging the various Dockerfiles to a [single multi-stage Dockerfile](./Dockerfile) is in progress.
+Repository for the Dockerfile for Data Workspace on-demand tools and related components.
 
-With some exceptions, they can be built and pushed using https://jenkins.ci.uktrade.digital/job/data-workspace-tools/
+The tools can be built and pushed using https://jenkins.ci.uktrade.digital/job/data-workspace-tools/.
 
 
 ## What makes a "tool"?
