@@ -158,7 +158,7 @@ RUN \
     echo 'no-cache-dir = false' >> /etc/pip.conf
 
 COPY \
-    requirements.txt /root/
+    python/requirements.txt /root/
 
 RUN \
     python3 -m pip install --upgrade pip setuptools wheel && \
