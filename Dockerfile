@@ -479,3 +479,16 @@ FROM base AS s3sync
 # Collects metrics from tools
 
 FROM base AS metrics
+
+RUN \
+    apt-get update && \
+    apt-get install python3 python3-pip -y --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/* && \
+	pip3 install \
+		aiohttp==3.10.10
+
+COPY metrics/metrics.py /
+
+CMD ["python3", "/metrics.py"]
+
+USER dw-user
