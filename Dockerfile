@@ -158,10 +158,11 @@ RUN \
     echo 'no-cache-dir = false' >> /etc/pip.conf
 
 COPY \
-    requirements.txt python-setup.sh /root/
+    requirements.txt /root/
 
 RUN \
-    /root/python-setup.sh && \
+    python3 -m pip install --upgrade pip setuptools wheel && \
+    python3 -m pip install -r /root/requirements.txt && \
     chown -R dw-user:dw-user /usr/local && \
     chown -R dw-user:dw-user /opt/conda
 
