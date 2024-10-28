@@ -26,30 +26,32 @@ Typically tools run a startup script as root to perform setup tasks that require
 
 The [Dockerfile](./Dockerfile) is a multi-stage Dockerfile, where each stage is a tool, related component, or a stage that contains files shared between multiple tools or related components. This allows Dockerfile code to be shared without duplication, helping maintain consistency.
 
-- [base](./base/)
+- **base**
 
-  - [python](./python/)
+  Common packages, tools, and configuration for all tools and visualisations.
 
-    - [python-jupyterLab](./python-jupyterlab/)
+  - **python** - Common Python packages for all python-based tools and visualisations.
 
-    - python-theia
+    - **python-jupyterlab** - A light layer with some JupyterLab-specific configuration.
 
-    - python-visualisation
+    - **python-theia** - Adds Theia to the python stage.
 
-   - rv4
+    - **python-visualisation** - Base image for Python-based visualisations. This currently does not add anything to the python stage.
 
-     - [rv4-cran-binary-mirror](./rv4-cran-binary-mirror/)
+   - **rv4**
 
-     - rv4-common-packages
+     - **rv4-cran-binary-mirror** - The code to populate our mirror that contains a compiled chosen subset of CRAN packages for R version 4. This is run by the [SyncCranBinaryMirrorPipeline in data-flow](https://github.com/uktrade/data-flow/blob/main/dags/data_infrastructure/mirror_cran_binary.py).
 
-       - [rv4-rstudio](./rv4-rstudio/)
+     - **rv4-common-packages** - Adds a set of frequently-used packages to the rv4 stage.
 
-       - rv4-visualisation
+       - **rv4-rstudio** - RStudio running R version 4.
 
-   - [pgadmin](./pgadmin/)
+       - **rv4-visualisation** - Base image for R version 4 based visualisations. This currently does not add anything to the rv4-common-packages stage.
 
-   - [remote-desktop](./remote-desktop/)
+   - **pgadmin** -Runs [pgAdmin](https://www.pgadmin.org/), used to expore the datasets database and to run SQL-queries.
 
-   - [s3sync](./s3sync/)
+   - **remote-desktop** - A basic remote desktop setup that runs [gretl](https://gretl.sourceforge.net/) and [QGIS](https://qgis.org/).
 
-   - [metrics](./metrics/)
+   - **s3sync** - A sidecar container running [mobius3](https://github.com/uktrade/mobius3) that syncs files to and from the S3 "Your Files" area for each user.
+
+   - **metrics** - A sidecar container that extract basic metrics for the tools, fetched by our internal Prometheus instance to allow us to shut down inactive tools. This was setup before we could get metrics in CloudWatch for tasks that were not part of services.
