@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # When on EFS, we expect to not be able to change ownership, and we don't need to
-chown -R s3sync:s3sync /home/s3sync/data
+chown -R dw-user:dw-user /home/s3sync/data
 
 set -e
 
@@ -16,7 +16,7 @@ set -e
 # Excluding various config and cache files/folders for remote desktop. The most crucial of these
 # seems to be the .Xauthority file which must not get deleted, otherwise the remote desktop
 # will refuse to open any new windows
-sudo -E -u s3sync mobius3 \
+sudo -E -u dw-user mobius3 \
     /home/s3sync/data \
     ${S3_BUCKET} \
     https://s3-${S3_REGION}.amazonaws.com/{}/ \

@@ -474,6 +474,26 @@ CMD ["/start.sh"]
 
 FROM base AS s3sync
 
+RUN \
+    # Try to disable ipv6 AAAA lookups, which our DNS rewrite proxy doesn't support
+    # Not 100% sure that this really does have an effect
+    echo "precedence ::ffff:0:0/96  100" >> /etc/gai.conf
+
+RUN \
+    apt update && \
+    apt install -y sudo python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY s3sync/requirements.txt /app/
+
+RUN \
+    pip3 install \
+        -r /app/requirements.txt
+
+COPY s3sync/start.sh /
+
+CMD ["/start.sh"]
+
 
 ###################################################################################################
 # Collects metrics from tools
