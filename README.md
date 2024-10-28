@@ -20,3 +20,36 @@ Typically tools run a startup script as root to perform setup tasks that require
 ## Sudo
 
 (Passwordless) sudo is allowed only for the "dw-install" script that allows users to install Debian packages from our Debian mirror.
+
+
+## Hierarchy of stages
+
+The [Dockerfile](./Dockerfile) is a multi-stage Dockerfile, where each stage is a tool, related component, or a stage that contains files shared between multiple tools or related components. This allows Dockerfile code to be shared without duplication, helping maintain consistency.
+
+- [base](./base/)
+
+  - [python](./python/)
+
+    - [python-jupyterLab](./python-jupyterlab/)
+
+    - python-theia
+
+    - python-visualisation
+
+   - rv4
+
+     - [rv4-cran-binary-mirror](./rv4-cran-binary-mirror/)
+
+     - rv4-common-packages
+
+       - [rv4-rstudio](./rv4-rstudio/)
+
+       - rv4-visualisation
+
+   - [pgadmin](./pgadmin/)
+
+   - [remote-desktop](./remote-desktop/)
+
+   - [s3sync](./s3sync/)
+
+   - [metrics](./metrics/)
