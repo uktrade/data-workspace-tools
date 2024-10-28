@@ -48,7 +48,7 @@ The [Dockerfile](./Dockerfile) is a multi-stage Dockerfile, where each stage is 
 
        - **rv4-visualisation** - Base image for R version 4 based visualisations. This currently does not add anything to the rv4-common-packages stage.
 
-   - **pgadmin** -Runs [pgAdmin](https://www.pgadmin.org/), used to expore the datasets database and to run SQL-queries.
+   - **pgadmin** - Runs [pgAdmin](https://www.pgadmin.org/), used to expore the datasets database and to run SQL-queries.
 
    - **remote-desktop** - A basic remote desktop setup that runs [gretl](https://gretl.sourceforge.net/) and [QGIS](https://qgis.org/).
 
