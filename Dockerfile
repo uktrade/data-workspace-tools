@@ -171,8 +171,8 @@ RUN \
 
 FROM python AS python-jupyterlab
 
-COPY jupyterlab-python/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
-COPY jupyterlab-python/start.sh /
+COPY python-jupyterlab/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
+COPY python-jupyterlab/start.sh /
 
 CMD ["/start.sh"]
 ENTRYPOINT ["tini", "-g", "--"]
@@ -189,8 +189,8 @@ ENV \
 	# a service worker. This doesn't work with the locked down DW CSP
 	THEIA_WEBVIEW_EXTERNAL_ENDPOINT={{hostname}}
 
-COPY theia/package.json /root
-COPY theia/yarn.lock /root
+COPY python-theia/package.json /root
+COPY python-theia/yarn.lock /root
 
 RUN \
     cd /root && \
@@ -209,8 +209,8 @@ RUN \
 	echo "conda activate base" >> /etc/profile && \
 	ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 
-COPY theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
-COPY theia/start.sh /start.sh
+COPY python-theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
+COPY python-theia/start.sh /start.sh
 
 CMD ["/start.sh"]
 
@@ -300,7 +300,7 @@ RUN \
 
 FROM rv4 AS rv4-cran-binary-mirror
 
-COPY mirrors-sync-cran-binary/build.R /home
+COPY rv4-cran-binary-mirror/build.R /home
 
 CMD Rscript /home/build.R
 
@@ -360,7 +360,7 @@ RUN \
     echo '}, action = "append")' >> /usr/lib/R/etc/Rprofile.site && \
     echo '' >> /usr/lib/R/etc/Rprofile.site
 
-COPY rstudio-rv4/rstudio-start.sh /
+COPY rv4-rstudio/rstudio-start.sh /
 
 CMD ["/rstudio-start.sh"]
 
