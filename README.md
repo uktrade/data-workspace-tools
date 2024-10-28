@@ -17,6 +17,13 @@ Each tool runs under the same non-root user, dw-user, that is a member of the dw
 Typically tools run a startup script as root to perform setup tasks that require root access, but then run the tool proper under dw-user.
 
 
+## Mirrors
+
+A feature of Data Workspace tools is their isolation from the internet. To still allow install of packages on tools without internet access, we mirror Debian, PyPI, conda-forge, anaconda, and CRAN to our own S3 bucket that is accessible from tools, and the tools are configured in the [Dockerfile](./Dockerfile) to pull packages from this bucket. The mirroring is done by the [Sync\*MirrorPipelines](https://github.com/uktrade/data-flow/blob/main/dags/data_infrastructure/split_mirror_sync_pipelines.py) in data-flow.
+
+In addition, the bucket contains what we call the "CRAN binary mirror" that contains a subset of CRAN packages that have been pre-compiled because some packages are very slow to compile. This is done by the rv4-cran-binary-mirror stage, and run by the [SyncCranBinaryMirrorPipeline in data-flow](https://github.com/uktrade/data-flow/blob/main/dags/data_infrastructure/mirror_cran_binary.py).
+
+
 ## Sudo
 
 (Passwordless) sudo is allowed only for the "dw-install" script that allows users to install Debian packages from our Debian mirror.
@@ -40,7 +47,7 @@ The [Dockerfile](./Dockerfile) is a multi-stage Dockerfile, where each stage is 
 
    - **rv4**
 
-     - **rv4-cran-binary-mirror** - The code to populate our mirror that contains a compiled chosen subset of CRAN packages for R version 4. This is run by the [SyncCranBinaryMirrorPipeline in data-flow](https://github.com/uktrade/data-flow/blob/main/dags/data_infrastructure/mirror_cran_binary.py).
+     - **rv4-cran-binary-mirror** - The code to populate our mirror that contains a compiled chosen subset of CRAN packages for R version 4.
 
      - **rv4-common-packages** - Adds a set of frequently-used packages to the rv4 stage.
 
