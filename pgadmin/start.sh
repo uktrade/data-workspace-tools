@@ -13,4 +13,4 @@ chown -R dw-user:dw-user \
 
 python3 /usr/local/lib/python3.9/dist-packages/pgadmin4/setup.py load-servers /pgadmin4/servers.json
 
-sudo -E -H -u dw-user gunicorn --bind 0.0.0.0:8888 --workers=1 --threads=25 --chdir /usr/local/lib/python3.9/dist-packages/pgadmin4 pgAdmin4:app
+exec sudo -E -H -u dw-user gunicorn --bind 0.0.0.0:8888 --workers=1 --threads=25 --chdir /usr/local/lib/python3.9/dist-packages/pgadmin4 pgAdmin4:app
