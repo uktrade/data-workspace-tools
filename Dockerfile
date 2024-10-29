@@ -176,7 +176,6 @@ COPY python-jupyterlab/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_
 COPY python-jupyterlab/start.sh /
 
 CMD ["/start.sh"]
-ENTRYPOINT ["tini", "-g", "--"]
 
 
 ###################################################################################################
