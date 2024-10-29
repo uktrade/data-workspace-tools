@@ -8,7 +8,7 @@ set -e
 # Java programs can error if $HOSTNAME is not resolvable
 echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
-sudo -E -H -u dw-user jupyter \
+exec sudo -E -H -u dw-user jupyter \
 	lab \
 	--config=/etc/jupyter/jupyter_notebook_config.py \
 	--NotebookApp.token='' \
