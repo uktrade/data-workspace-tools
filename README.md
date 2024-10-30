@@ -29,6 +29,15 @@ In addition, the bucket contains what we call the "CRAN binary mirror" that cont
 (Passwordless) sudo is allowed only for the "dw-install" script that allows the dw-user to install Debian packages from our Debian mirror.
 
 
+## Visualisations
+
+Docker-based visualisations are very similar to tools in that they are any application that can run in Docker and listen on port 8888. Users write their own Dockerfiles extending from base images generated from either the python-visualisation or rv4-visualisation stages defined in the [Dockerfile](./Dockerfile).
+
+Visualisations are typically developed from within tools, and so the stages are deliberately very similar to the stages that define the tools themselves, so what works in tools will work in the visualisation wherever possible. Originally this was not the case - there wasn't anything tying the visualisation base images to the tools images.
+
+Often visualisations run Streamlit (for Python) or Shiny (for R).
+
+
 ## Hierarchy of stages
 
 The [Dockerfile](./Dockerfile) is a multi-stage Dockerfile, where each stage is a tool, related component, or a stage that contains files shared between multiple tools or related components. This allows Dockerfile code to be shared without duplication, helping maintain consistency.
