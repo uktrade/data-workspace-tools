@@ -8,6 +8,9 @@ set -e
 # Java programs can error if $HOSTNAME is not resolvable
 echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
+# ms-toolsai.jupyter has to write to the plugins directory
+chown -R dw-user:dw-user /root/plugins/ms-toolsai.jupyter
+
 cd /root
 exec sudo -E -H -u dw-user yarn theia start /home/dw-user \
 	--plugins=local-dir:/root/plugins \

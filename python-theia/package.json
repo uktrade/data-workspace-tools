@@ -1,6 +1,9 @@
 {
   "private": true,
   "theia": {
+    "theia": {
+      "target": "browser"
+    },
     "frontend": {
       "config": {
         "applicationName": "Theia",
@@ -17,78 +20,37 @@
     }
   },
   "dependencies": {
-    "@theia/callhierarchy": "^1.54.0",
-    "@theia/file-search": "^1.54.0",
-    "@theia/git": "^1.54.0",
-    "@theia/markers": "^1.54.0",
-    "@theia/messages": "^1.54.0",
-    "@theia/navigator": "^1.54.0",
-    "@theia/outline-view": "^1.54.0",
-    "@theia/plugin-ext-vscode": "^1.54.0",
-    "@theia/preferences": "^1.54.0",
-    "@theia/preview": "^1.54.0",
-    "@theia/search-in-workspace": "^1.54.0",
-    "@theia/terminal": "^1.54.0",
-    "@theia/vsx-registry": "^1.54.0"
+    "@theia/core": "^1.55.0",
+    "@theia/editor": "^1.55.0",
+    "@theia/filesystem": "^1.55.0",
+    "@theia/markers": "^1.55.0",
+    "@theia/messages": "^1.55.0",
+    "@theia/monaco": "^1.55.0",
+    "@theia/navigator": "^1.55.0",
+    "@theia/preferences": "^1.55.0",
+    "@theia/process": "^1.55.0",
+    "@theia/terminal": "^1.55.0",
+    "@theia/vsx-registry": "^1.55.0",
+    "@theia/workspace": "^1.55.0"
   },
   "devDependencies": {
-    "@theia/cli": "^1.54.0"
+    "@theia/cli": "^1.55.0"
   },
-  "resolutions": {
-    "**/ws": "^8.17.1"
-  },
-  "scripts": {
-    "prepare": "yarn run clean && yarn build && yarn run download:plugins",
-    "clean": "theia clean",
-    "build": "theia build --mode development",
-    "start": "theia start --plugins=local-dir:plugins",
-    "download:plugins": "theia download:plugins"
-  },
-  "theiaPluginsDir": "plugins",
   "theiaPlugins": {
-    "vscode-builtin-extensions-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.50.1/file/eclipse-theia.builtin-extension-pack-1.50.1.vsix",
-    "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.8.109390/ms-python-release.vsix"
+    "eclipse-theia.builtin-extension-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.88.1/file/eclipse-theia.builtin-extension-pack-1.88.1.vsix",
+    "EditorConfig.EditorConfig": "https://open-vsx.org/api/EditorConfig/EditorConfig/0.16.6/file/EditorConfig.EditorConfig-0.16.6.vsix",
+    "dbaeumer.vscode-eslint": "https://open-vsx.org/api/dbaeumer/vscode-eslint/2.4.2/file/dbaeumer.vscode-eslint-2.4.2.vsix",
+    "ms-toolsai.jupyter": "https://open-vsx.org/api/ms-toolsai/jupyter/2024.6.0/file/ms-toolsai.jupyter-2024.6.0.vsix",
+    "ms-python.python": "https://open-vsx.org/api/ms-python/python/2024.12.3/file/ms-python.python-2024.12.3.vsix"
   },
   "theiaPluginsExcludeIds": [
-    "vscode.debug-auto-launch",
-    "vscode.debug-server-ready",
+    "ms-vscode.js-debug-companion",
     "vscode.extension-editing",
     "vscode.github",
     "vscode.github-authentication",
-    "vscode.markdown",
-    "vscode.markdown-language-features",
-    "vscode.markdown-math",
     "vscode.microsoft-authentication",
-    "vscode.npm",
-    "vscode.php-language-features",
-    "vscode.powershell",
-    "vscode.pug",
-    "vscode.razor",
-    "vscode.ruby",
-    "vscode.rust",
-    "vscode.search-result",
-    "vscode.shaderlab",
-    "vscode.shellscript",
-    "vscode.simple-browser",
-    "vscode.swift",
-    "vscode.theme-abyss",
-    "vscode.theme-defaults",
-    "vscode.theme-kimbie-dark",
-    "vscode.theme-monokai",
-    "vscode.theme-monokai-dimmed",
-    "vscode.theme-quietlight",
-    "vscode.theme-red",
-    "vscode.vscode-theme-seti",
-    "vscode.theme-solarized-dark",
-    "vscode.theme-solarized-light",
-    "vscode.theme-tomorrow-night-blue",
-    "vscode.typescript",
-    "vscode.typescript-language-features",
-    "vscode.vb",
-    "ms-vscode.node-debug",
-    "ms-vscode.node-debug2",
     "ms-vscode.references-view",
-    "ms-vscode.js-debug-companion",
-    "ms-vscode.js-debug"
-  ]
+    "ms-python.vscode-pylance"
+  ],
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

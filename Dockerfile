@@ -134,7 +134,7 @@ RUN \
         vim \
         wget && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
-    wget -q -O - https://deb.nodesource.com/setup_20.x | bash  && \
+    wget -q -O - https://deb.nodesource.com/setup_18.x | bash  && \
     apt-get install -y nodejs && \
     apt-get remove --purge -y \
         wget && \
@@ -197,7 +197,7 @@ RUN \
     curl -o- -L https://yarnpkg.com/install.sh | bash && \
 	yarn install && \
 	yarn theia download:plugins && \
-	yarn theia build && \
+	yarn theia build --mode development && \
 	yarn cache clean && \
 	find /root -type d -exec chmod 755 {} + && \
 	chmod -R +r /root && \

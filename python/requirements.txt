@@ -11,6 +11,8 @@ anyio==4.0.0
     #   httpcore
     #   httpx
     #   jupyter-server
+appnope==0.1.4
+    # via ipykernel
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -27,8 +29,6 @@ attrs==23.1.0
     #   referencing
 babel==2.12.1
     # via jupyterlab-server
-backcall==0.2.0
-    # via ipython
 beautifulsoup4==4.12.2
     # via nbconvert
 bleach==6.0.0
@@ -84,8 +84,6 @@ fqdn==1.5.1
     # via jsonschema
 git-lfs-http-mirror==0.0.7
     # via -r requirements.in
-greenlet==3.1.1
-    # via sqlalchemy
 h11==0.14.0
     # via
     #   httpcore
@@ -125,11 +123,11 @@ importlib-metadata==8.5.0
     #   quart
 importlib-resources==6.4.5
     # via matplotlib
-ipykernel==6.25.2
+ipykernel==6.29.5
     # via jupyterlab
-ipympl==0.9.3
+ipympl==0.9.4
     # via -r requirements.in
-ipython==8.15.0
+ipython==8.18.0
     # via
     #   -r requirements.in
     #   ipykernel
@@ -273,8 +271,6 @@ pandocfilters==1.5.0
 parso==0.8.3
     # via jedi
 pexpect==4.8.0
-    # via ipython
-pickleshare==0.7.5
     # via ipython
 pillow==10.3.0
     # via
