@@ -55,7 +55,7 @@ pipeline {
         extendedChoice(
             name: 'Caching',
             defaultValue: '',
-            description: 'Control how the cache is used when building',
+            description: 'By default layers pushed in the 12 hours before a build are used as a cache.',
             type: 'PT_CHECKBOX',
             visibleItemCount: 1,
             value: 'skip',
