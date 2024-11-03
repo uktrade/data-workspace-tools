@@ -10,7 +10,6 @@ echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 
 cd /root
 exec sudo -E -H -u dw-user yarn theia start /home/dw-user \
-	--plugins=local-dir:/root/plugins \
 	--hostname=0.0.0.0 \
 	--port=8888 \
 	--cache-folder=/tmp/.yarn-cache

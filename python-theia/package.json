@@ -40,7 +40,6 @@
     "**/nano": "^10.1.2",
     "**/msgpackr": "^1.10.1"
   },
-  "theiaPluginsDir": "plugins",
   "theiaPlugins": {
     "vscode-builtin-extensions-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.50.1/file/eclipse-theia.builtin-extension-pack-1.50.1.vsix",
     "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.8.109390/ms-python-release.vsix",
