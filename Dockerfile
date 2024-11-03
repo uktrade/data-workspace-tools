@@ -209,12 +209,7 @@ RUN \
 	echo "conda activate base" >> /etc/profile && \
 	ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 
-# https://github.com/uktrade/theia-postgres creates the plugin as a ZIP file. We converted this
-# manually to a tar.gz archive, so ADD can uncompress it into the resulting Docker image. If we
-# update theia-postgres, we will have to convert its output file again (using unzip and tar).
-# Earlier verisions of Theia accepted a ZIP format without this conversion.
-ADD python-theia/theia_postgres.tar.gz /root/plugins/
-
+COPY python-theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 COPY python-theia/start.sh /start.sh
 
 CMD ["/start.sh"]
