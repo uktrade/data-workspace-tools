@@ -196,7 +196,6 @@ RUN \
     cd /root && \
     curl -o- -L https://yarnpkg.com/install.sh | bash && \
 	yarn install && \
-	yarn theia build && \
 	yarn cache clean && \
 	find /root -type d -exec chmod 755 {} + && \
 	chmod -R +r /root && \

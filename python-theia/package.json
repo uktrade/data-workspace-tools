@@ -43,7 +43,7 @@
   "scripts": {
     "prepare": "yarn run clean && yarn build && yarn run download:plugins",
     "clean": "theia clean",
-    "build": "theia build --mode development",
+    "build": "theia build",
     "start": "theia start --plugins=local-dir:plugins",
     "download:plugins": "theia download:plugins"
   },
