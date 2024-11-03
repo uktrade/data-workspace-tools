@@ -52,6 +52,15 @@ pipeline {
                 '<strong>s3sync</strong>: Sidecar for syncing Your Files,' +
                 '<strong>metrics</strong>: Sidecar for extracting metrics so tools automatically shut down'
         )
+        extendedChoice(
+            name: 'Caching',
+            defaultValue: '',
+            description: 'Control how the cache is used when building',
+            type: 'PT_CHECKBOX',
+            visibleItemCount: 1,
+            value: 'skip',
+            descriptionPropertyValue: 'Ignore any cached layers and force a rebuild from the top of the Dockerfile'
+        )
     }
 
     stages {
@@ -92,6 +101,7 @@ pipeline {
             steps {
                 script {
                     (dockerTarget, dockerRepoSuffix, dockerTag) = params.Component.tokenize('|')
+                    cacheTTL = params.Caching == 'skip' ? '0' : '12h'
                     def Map<String, String> envDescriptions = [
                         'analysisworkspace-dev': '🌱 dev',
                         'data-workspace-staging': '🎪 staging',
@@ -113,7 +123,8 @@ pipeline {
                         "Environment=${params.Environment}",
                         "dockerTarget=${dockerTarget}",
                         "dockerRepoSuffix=${dockerRepoSuffix}",
-                        "dockerTag=${dockerTag}"
+                        "dockerTag=${dockerTag}",
+                        "cacheTTL=${cacheTTL}",
                     ]) {
                         sh '''
                           #!/busybox/sh
@@ -122,6 +133,11 @@ pipeline {
                             --dockerfile ${WORKSPACE}/Dockerfile \
                             --target=${dockerTarget} \
                             --skip-unused-stages=true \
+                            --cache=true \
+                            --cache-ttl=${cacheTTL} \
+                            --cache-copy-layers=true \
+                            --cache-run-layers=true \
+                            --cache-repo=${DATA_INFRASTRUCTURE_PROD_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/${Environment}-${dockerRepoSuffix} \
                             --destination=${DATA_INFRASTRUCTURE_PROD_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/${Environment}-${dockerRepoSuffix}:${dockerTag}
                         '''
                     }}}
