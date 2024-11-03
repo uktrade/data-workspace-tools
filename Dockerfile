@@ -209,7 +209,6 @@ RUN \
 	echo "conda activate base" >> /etc/profile && \
 	ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 
-COPY python-theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 COPY python-theia/start.sh /start.sh
 
 CMD ["/start.sh"]
