@@ -17,39 +17,40 @@
     }
   },
   "dependencies": {
-    "@theia/callhierarchy": "1.46.1",
-    "@theia/file-search": "1.46.1",
-    "@theia/git": "1.46.1",
-    "@theia/markers": "1.46.1",
-    "@theia/messages": "1.46.1",
-    "@theia/navigator": "1.46.1",
-    "@theia/outline-view": "1.46.1",
-    "@theia/plugin-ext-vscode": "1.46.1",
-    "@theia/preferences": "1.46.1",
-    "@theia/preview": "1.46.1",
-    "@theia/search-in-workspace": "1.46.1",
-    "@theia/terminal": "1.46.1",
-    "@theia/vsx-registry": "1.46.1"
+    "@theia/callhierarchy": "^1.46.1",
+    "@theia/file-search": "^1.46.1",
+    "@theia/git": "^1.46.1",
+    "@theia/markers": "^1.46.1",
+    "@theia/messages": "^1.46.1",
+    "@theia/navigator": "^1.46.1",
+    "@theia/outline-view": "^1.46.1",
+    "@theia/plugin-ext-vscode": "^1.46.1",
+    "@theia/preferences": "^1.46.1",
+    "@theia/preview": "^1.46.1",
+    "@theia/search-in-workspace": "^1.46.1",
+    "@theia/terminal": "^1.46.1",
+    "@theia/vsx-registry": "^1.46.1"
   },
   "devDependencies": {
-    "@theia/cli": "1.46.1"
+    "@theia/cli": "^1.46.1"
   },
   "resolutions": {
-    "**/nan": "2.20.0"
+    "**/axios": "^1.6.7",
+    "**/axios-cookiejar-support": "^4.0.7",
+    "**/nano": "^10.1.2",
+    "**/msgpackr": "^1.10.1"
   },
-  "resolutions": {
-    "**/axios": "^0.28.0",
-    "**/cookie": "^0.7.0",
-    "**/msgpackr": "^1.10.1",
-    "**/ws": "^8.17.1"
+  "scripts": {
+    "prepare": "yarn run clean && yarn build && yarn run download:plugins",
+    "clean": "theia clean",
+    "build": "theia build --mode development",
+    "start": "theia start --plugins=local-dir:plugins",
+    "download:plugins": "theia download:plugins"
   },
   "theiaPluginsDir": "plugins",
   "theiaPlugins": {
-    "eclipse-theia.builtin-extension-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.88.1/file/eclipse-theia.builtin-extension-pack-1.88.1.vsix",
-    "ms-toolsai.jupyter": "https://open-vsx.org/api/ms-toolsai/jupyter/2024.10.0/file/ms-toolsai.jupyter-2024.10.0.vsix",
-    "ms-python.python": "https://open-vsx.org/api/ms-python/python/2024.18.0/file/ms-python.python-2024.18.0.vsix",
-    "ms-python.debugpy": "https://open-vsx.org/api/ms-python/debugpy/linux-x64/2024.12.0/file/ms-python.debugpy-2024.12.0@linux-x64.vsix",
-    "theia-postgres": "https://github.com/uktrade/theia-postgres/releases/download/v0.0.1/theia-postgres.vsix"
+    "vscode-builtin-extensions-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.50.1/file/eclipse-theia.builtin-extension-pack-1.50.1.vsix",
+    "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.8.109390/ms-python-release.vsix"
   },
   "theiaPluginsExcludeIds": [
     "vscode.debug-auto-launch",
@@ -91,7 +92,6 @@
     "ms-vscode.node-debug2",
     "ms-vscode.references-view",
     "ms-vscode.js-debug-companion",
-    "ms-vscode.js-debug",
-    "ms-python.vscode-pylance"
+    "ms-vscode.js-debug"
   ]
 }
