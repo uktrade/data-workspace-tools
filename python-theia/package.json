@@ -40,17 +40,11 @@
     "**/nano": "^10.1.2",
     "**/msgpackr": "^1.10.1"
   },
-  "scripts": {
-    "prepare": "yarn run clean && yarn build && yarn run download:plugins",
-    "clean": "theia clean",
-    "build": "theia build --mode development",
-    "start": "theia start --plugins=local-dir:plugins",
-    "download:plugins": "theia download:plugins"
-  },
   "theiaPluginsDir": "plugins",
   "theiaPlugins": {
     "vscode-builtin-extensions-pack": "https://open-vsx.org/api/eclipse-theia/builtin-extension-pack/1.50.1/file/eclipse-theia.builtin-extension-pack-1.50.1.vsix",
-    "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.8.109390/ms-python-release.vsix"
+    "vscode-python": "https://github.com/microsoft/vscode-python/releases/download/2020.8.109390/ms-python-release.vsix",
+    "theia-postgres": "https://github.com/uktrade/theia-postgres/releases/download/v0.0.1/theia-postgres.vsix"
   },
   "theiaPluginsExcludeIds": [
     "vscode.debug-auto-launch",
