@@ -511,3 +511,9 @@ COPY metrics/metrics.py /
 CMD ["python3", "/metrics.py"]
 
 USER dw-user
+
+
+###################################################################################################
+# Gitlab private python package index
+
+COPY private_package_index/create_index_html.py create_index_html.py
