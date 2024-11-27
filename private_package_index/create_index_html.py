@@ -32,4 +32,3 @@ if len(sys.argv) > 1:
     create_index_html(whl_files)
 else:
     print("No wheel files found.")
- 
