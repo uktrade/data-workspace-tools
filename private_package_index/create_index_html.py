@@ -18,25 +18,25 @@ def is_s3_path(s3_path):
     if len(parts) < 2:
         return False
 
-    bucket_name = parts[1]
+    bucket_name = parts[0]
     if not S3_BUCKET_NAME_REGEX.match(bucket_name):
         return False
 
     return True
 
 def split_s3_path(s3_path):
-    bucket = s3_path.split("/")[2]
-    prefix = s3_path.split(bucket)[1]
-    return bucket, prefix
+    s3_path = s3_path[5:]
+    parts = s3_path.split("/", 1)
+    return parts[0], parts[1]
 
 def get_wheel_filenames(s3, bucket, prefix):
     filenames = []
     result = s3.list_objects_v2(Bucket=bucket, Prefix=prefix)
-    for item in result["Contents"]:
-        file = item["Key"]
-        print("file: ", file)
-        if file.lower().endswith(".whl"):
-            filenames.append(file)
+    if 'Contents' in result:
+        for item in result["Contents"]:
+            file = item["Key"]
+            if file.lower().endswith(".whl"):
+                filenames.append(file)
     return filenames
 
 def create_and_upload_index_html(s3, bucket, prefix, whl_files):
@@ -71,5 +71,9 @@ if not is_s3_path(s3_path):
 bucket, prefix = split_s3_path(s3_path)
 print(f"looking for whl files in {bucket} with prefix {prefix}")
 whl_files = get_wheel_filenames(s3_client, bucket, prefix)
-print("whl files:", whl_files)
-create_and_upload_index_html(s3_client, bucket, prefix, whl_files)
+if whl_files:
+    print("whl files found:", whl_files)
+    print("creating and uploading index")
+    create_and_upload_index_html(s3_client, bucket, prefix, whl_files)
+else:
+    print("no whl files to create index")
