@@ -396,7 +396,7 @@ tomli==2.0.1
     # via
     #   hypercorn
     #   jupyterlab
-tornado==6.4.1
+tornado==6.4.2
     # via
     #   ipykernel
     #   jupyter-client
