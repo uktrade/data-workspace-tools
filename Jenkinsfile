@@ -59,7 +59,7 @@ pipeline {
             type: 'PT_CHECKBOX',
             visibleItemCount: 1,
             value: 'skip',
-            descriptionPropertyValue: 'Ignore any cached layers and force a rebuild from the top of the Dockerfile'
+            descriptionPropertyValue: 'Ignore any cached layers and force a rebuild from the top of the Dockerfile. If you\'re not sure, leave this unticked.',
         )
     }
 
