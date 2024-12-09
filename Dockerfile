@@ -161,6 +161,11 @@ RUN \
 COPY \
     python/requirements.txt /root/
 
+# Helper script to create index html for Gitlab private python package index packages
+COPY \
+    private_package_index/create_index_html.py /
+
+
 RUN \
     python3 -m pip install --upgrade pip setuptools wheel && \
     python3 -m pip install -r /root/requirements.txt && \
