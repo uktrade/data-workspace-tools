@@ -41,7 +41,7 @@ def get_wheel_filenames(s3, bucket, prefix):
         for item in result["Contents"]:
             file = item["Key"]
             if file.lower().endswith(".whl"):
-                filenames.append(file)
+                filenames.append(file.split('/')[-1])
     if len(filenames) == 0:
         raise ValueError("no whl files found")
     return filenames
