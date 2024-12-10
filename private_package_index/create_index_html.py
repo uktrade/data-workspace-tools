@@ -20,10 +20,10 @@ def is_s3_path(s3_path):
         print("not enough parts in the path")
         return False
 
-    bucket_name = parts[0]
-    if not S3_BUCKET_NAME_REGEX.match(bucket_name):
-        print("failed regex check")
-        return False
+    # bucket_name = parts[0]
+    # if not S3_BUCKET_NAME_REGEX.match(bucket_name):
+    #     print("failed regex check")
+    #     return False
 
     print("all good with the path")
     return True
