@@ -34,17 +34,18 @@ def split_s3_path(s3_path):
     return parts[0], parts[1]
 
 def get_wheel_filenames(s3, bucket, prefix):
-    filenames = []
+    filenames_and_paths = []
     result = s3.list_objects_v2(Bucket=bucket, Prefix=prefix)
     print(result)
     if 'Contents' in result:
         for item in result["Contents"]:
             file = item["Key"]
             if file.lower().endswith(".whl"):
-                filenames.append(file.split('/')[-1])
-    if len(filenames) == 0:
+                filename = file.split('/')[-1]
+                filenames_and_paths.append((filename, file))
+    if len(filenames_and_paths) == 0:
         raise ValueError("no whl files found")
-    return filenames
+    return filenames_and_paths
 
 def create_and_upload_index_html(s3, bucket, prefix, whl_files):
     html_str = (
@@ -53,7 +54,7 @@ def create_and_upload_index_html(s3, bucket, prefix, whl_files):
         + "<body>"
         + "".join(
             [
-                f'<a href="{filename}">{filename}</a>'
+                f'<a href="{filename[1]}">{filename[0]}</a>'
                 for filename in whl_files
             ]
         )
