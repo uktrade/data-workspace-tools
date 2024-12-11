@@ -8,9 +8,13 @@ import boto3
 import re
 import sys
 
-S3_BUCKET_NAME_REGEX = re.compile(r"^[a-z0-9-]{3,63}$")
+S3_PATH_REGEX = re.compile(r"^s3://([^/]+)/(.*?([^/]+)/?)$")
 
 def is_s3_path(s3_path):
+    # if not S3_PATH_REGEX.match(s3_path):
+    #     print("path doesn't match")
+    #     return False
+
     if not s3_path.startswith("s3://"):
         print("doesn't start with s3://")
         return False
@@ -20,11 +24,6 @@ def is_s3_path(s3_path):
         print("not enough parts in the path")
         return False
 
-    # bucket_name = parts[0]
-    # if not S3_BUCKET_NAME_REGEX.match(bucket_name):
-    #     print("failed regex check")
-    #     return False
-
     print("all good with the path")
     return True
 
@@ -33,16 +32,15 @@ def split_s3_path(s3_path):
     parts = s3_path.split("/", 1)
     return parts[0], parts[1]
 
-def get_wheel_filenames(s3, s3_path, bucket, prefix):
+def get_wheel_filenames(s3, bucket, prefix):
     filenames_and_paths = []
     result = s3.list_objects_v2(Bucket=bucket, Prefix=prefix)
-    print(result)
     if 'Contents' in result:
         for item in result["Contents"]:
             file = item["Key"]
             if file.lower().endswith(".whl"):
                 filename = file.split('/')[-1]
-                path = f"{s3_path}{filename}"
+                path = f"https://s3.eu-west-2.amazonaws.com/{bucket}/{file}"
                 filenames_and_paths.append((path, filename))
     if len(filenames_and_paths) == 0:
         raise ValueError("no whl files found")
@@ -81,7 +79,7 @@ if not is_s3_path(s3_path):
     raise ValueError("not valid s3 path")
 bucket, prefix = split_s3_path(s3_path)
 print(f"looking for whl files in {bucket} with prefix {prefix}")
-whl_files = get_wheel_filenames(s3_client, s3_path, bucket, prefix)
+whl_files = get_wheel_filenames(s3_client, bucket, prefix)
 print("whl files found:", whl_files)
 print("creating and uploading index")
 create_and_upload_index_html(s3_client, bucket, prefix, whl_files)
