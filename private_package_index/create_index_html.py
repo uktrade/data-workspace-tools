@@ -10,23 +10,6 @@ import sys
 
 S3_PATH_REGEX = re.compile(r"^s3://([^/]+)/(.*?([^/]+)/?)$")
 
-def is_s3_path(s3_path):
-    # if not S3_PATH_REGEX.match(s3_path):
-    #     print("path doesn't match")
-    #     return False
-
-    if not s3_path.startswith("s3://"):
-        print("doesn't start with s3://")
-        return False
-    s3_path = s3_path[5:]
-    parts = s3_path.split("/", 1)
-    if len(parts) < 2:
-        print("not enough parts in the path")
-        return False
-
-    print("all good with the path")
-    return True
-
 def split_s3_path(s3_path):
     s3_path = s3_path[5:]
     parts = s3_path.split("/", 1)
@@ -73,10 +56,11 @@ if len(sys.argv) <= 1:
 
 s3_client = boto3.client("s3", region_name="eu-west-2")
 s3_path = sys.argv[1]
+if not S3_PATH_REGEX.match(s3_path):
+    raise ValueError("invalid s3 path, expected format: s3://bucket/path/directory/")
+# add ending `/` in case its not already there
 if not s3_path.endswith("/"):
     s3_path = f"{s3_path}/"
-if not is_s3_path(s3_path):
-    raise ValueError("not valid s3 path")
 bucket, prefix = split_s3_path(s3_path)
 print(f"looking for whl files in {bucket} with prefix {prefix}")
 whl_files = get_wheel_filenames(s3_client, bucket, prefix)
