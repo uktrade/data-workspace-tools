@@ -33,7 +33,7 @@ def split_s3_path(s3_path):
     parts = s3_path.split("/", 1)
     return parts[0], parts[1]
 
-def get_wheel_filenames(s3, bucket, prefix):
+def get_wheel_filenames(s3, s3_path, bucket, prefix):
     filenames_and_paths = []
     result = s3.list_objects_v2(Bucket=bucket, Prefix=prefix)
     print(result)
@@ -42,7 +42,8 @@ def get_wheel_filenames(s3, bucket, prefix):
             file = item["Key"]
             if file.lower().endswith(".whl"):
                 filename = file.split('/')[-1]
-                filenames_and_paths.append((filename, file))
+                path = "{s3_path}{filename}"
+                filenames_and_paths.append((path, filename))
     if len(filenames_and_paths) == 0:
         raise ValueError("no whl files found")
     return filenames_and_paths
@@ -54,8 +55,8 @@ def create_and_upload_index_html(s3, bucket, prefix, whl_files):
         + "<body>"
         + "".join(
             [
-                f'<a href="{filename[1]}">{filename[0]}</a>'
-                for filename in whl_files
+                f'<a href="{file[0]}">{file[1]}</a>'
+                for file in whl_files
             ]
         )
         + "</body>"
@@ -74,11 +75,13 @@ if len(sys.argv) <= 1:
 
 s3_client = boto3.client("s3", region_name="eu-west-2")
 s3_path = sys.argv[1]
+if not s3_path.endswith("/"):
+    s3_path = f"{s3_path}/"
 if not is_s3_path(s3_path):
     raise ValueError("not valid s3 path")
 bucket, prefix = split_s3_path(s3_path)
 print(f"looking for whl files in {bucket} with prefix {prefix}")
-whl_files = get_wheel_filenames(s3_client, bucket, prefix)
+whl_files = get_wheel_filenames(s3_client, s3_path, bucket, prefix)
 print("whl files found:", whl_files)
 print("creating and uploading index")
 create_and_upload_index_html(s3_client, bucket, prefix, whl_files)
