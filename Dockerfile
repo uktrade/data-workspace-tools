@@ -197,6 +197,7 @@ ENV \
 
 COPY python-theia/package.json /root
 COPY python-theia/yarn.lock /root
+COPY python-theia/vscode_postgres.theia /root/plugins/vscode_postgres.theia
 
 RUN \
     cd /root && \
