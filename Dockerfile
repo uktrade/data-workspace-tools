@@ -367,6 +367,7 @@ RUN \
     echo '' >> /usr/lib/R/etc/Rprofile.site
 
 COPY rv4-rstudio/rstudio-start.sh /
+COPY rv4-rstudio/dw-rstudio-in-rstudio /usr/bin/dw-rstudio-in-rstudio
 
 CMD ["/rstudio-start.sh"]
 
