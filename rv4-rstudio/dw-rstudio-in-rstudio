@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+/usr/lib/rstudio-server/bin/rserver --server-daemonize=0 --server-user=dw-user --www-port 9000  --server-data-dir=/tmp/rstudio-server-9000
