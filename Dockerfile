@@ -321,7 +321,7 @@ RUN \
     mkdir build && \
     cd build && \
     \
-    Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse", "devtools", "plotly", "shiny", "leaflet", "shinydashboard", "sf", "shinycssloaders"), clean=TRUE)' && \
+    Rscript -e 'install.packages(c("aws.s3", "aws.ec2metadata", "ggraph", "igraph", "RPostgres", "text2vec", "tidytext", "tm", "topicmodels", "widyr", "wordcloud2", "tidyverse", "devtools", "plotly", "shiny", "leaflet", "shinydashboard", "sf", "shinycssloaders", "rmarkdown"), clean=TRUE)' && \
     \
     # Allow the run-time user to override anything just installed (e.g. with newer versions)
     chown -R dw-user:dw-user /usr/local/lib/R/site-library && \
