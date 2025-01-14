@@ -55,8 +55,6 @@ RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         locales \
-        fonts-roboto \
-        fonts-recommended \
         sudo && \
     rm -rf /var/lib/apt/lists/* && \
     echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
@@ -118,6 +116,8 @@ RUN \
         git-lfs \
         git-man \
         gnupg2 \
+        fonts-roboto \
+        fonts-recommended \
         libfreetype-dev \
 		libsecret-1-dev \
         libxext6 \
@@ -318,6 +318,12 @@ CMD Rscript /home/build.R
 FROM rv4 AS rv4-common-packages
 
 RUN \
+    # Install commonly needed fonts
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        fonts-roboto \
+        fonts-recommended && \
+    rm -rf /var/lib/apt/lists/* && \
     # Build in new directory to make cleanup easier
     mkdir build && \
     cd build && \
@@ -435,6 +441,8 @@ RUN \
     apt-get install -y --no-install-recommends \
         bzip2 \
         dbus-x11 \
+        fonts-roboto \
+        fonts-recommended \
         gnupg \
         gretl \
         gzip \
