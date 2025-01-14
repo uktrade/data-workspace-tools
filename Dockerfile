@@ -51,10 +51,12 @@ RUN \
     # (Technically unnecessary since as mentioned above, Debian signs packages)
     rm /etc/apt/apt.conf.d/99verify-peer.conf && \
     \
-    # Install and configure locales, sudo, and the user and group to run tools under
+    # Install and configure locales, fonts, sudo, and the user and group to run tools under
     apt-get update && \
     apt-get install -y --no-install-recommends \
         locales \
+        fonts-roboto \
+        fonts-recommended \
         sudo && \
     rm -rf /var/lib/apt/lists/* && \
     echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
@@ -112,7 +114,6 @@ RUN \
         curl \
         dirmngr \
         emacs \
-        fonts-dejavu-core \
         git \
         git-lfs \
         git-man \
