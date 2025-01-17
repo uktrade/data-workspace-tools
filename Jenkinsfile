@@ -32,6 +32,7 @@ pipeline {
             value: '' +
                 'python-jupyterlab|jupyterlab-python|master,' +
                 'python-theia|theia|master,' +
+                'python-vscode|vs-code|master,' +
                 'python-visualisation|visualisation-base|python,' +
                 'rv4-cran-binary-mirror|mirrors-sync-cran-binary-rv4|master,' +
                 'rv4-rstudio|rstudio-rv4|master,' +
@@ -43,6 +44,7 @@ pipeline {
             descriptionPropertyValue: '' +
                 '<strong>python-jupyterlab</strong>: JupyterLab,' +
                 '<strong>python-theia</strong>: Theia,' +
+                '<strong>python-vscode</strong>: VS-Code,' +
                 '<strong>python-visualisation</strong>: Base for Python visualisations,' +
                 '<strong>rv4-cran-binary-mirror</strong>: Image for CRAN binary mirror pipeline,' +
                 '<strong>rv4-rstudio</strong>: RStudio (R version 4),' +
