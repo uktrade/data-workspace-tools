@@ -10,6 +10,7 @@
 # ├── python
 # │   ├── python-jupyterLab
 # │   ├── python-theia
+# │   ├── python-vscode
 # │   └── python-visualisation
 # ├── rv4
 # │   ├── rv4-cran-binary-mirror
@@ -218,6 +219,19 @@ RUN \
 	ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 
 COPY python-theia/start.sh /start.sh
+
+CMD ["/start.sh"]
+
+
+###################################################################################################
+# VS Code
+
+FROM python AS python-vscode
+
+RUN \
+    curl -fsSL https://code-server.dev/install.sh | sh
+
+COPY python-vscode/start.sh /start.sh
 
 CMD ["/start.sh"]
 
