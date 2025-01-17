@@ -1,0 +1,13 @@
+{
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "/bin/bash",
+      "icon": "terminal-bash",
+      "args": [
+        "-l"
+      ]
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "python.defaultInterpreterPath": "/opt/conda/bin/python3"
+}

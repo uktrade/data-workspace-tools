@@ -228,9 +228,26 @@ CMD ["/start.sh"]
 
 FROM python AS python-vscode
 
+# Activate conda when launching a bash login shell
 RUN \
-    curl -fsSL https://code-server.dev/install.sh | sh
+    echo "conda activate base" >> /etc/profile && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 
+# Install VS Code (via code-server) and extensions
+RUN \
+    curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.96.2 && \
+    code-server --user-data-dir /etc/code-server --install-extension ms-python.python@2024.22.1 && \
+    code-server --user-data-dir /etc/code-server --install-extension ms-toolsai.jupyter@2024.11.10
+
+# VS Code in the browser make requests subdomains of vscode-cdn.net... but these are rewritten
+# by service workers and handled internally. So to allow us to still have quite a locked down CSP,
+# we modify the code to always reqeust vscode-cdn.invalid. We can then have *.vscode-cdn.invalid in
+# the CSP, but because these domains cannot actually exist, it doesn't meaningfully increase the
+# risk of data leakage
+RUN \
+    grep -rlZ vscode-cdn.net /usr/lib/code-server | xargs -0 sed -i 's/vscode-cdn.net/vscode-cdn.invalid/g'
+
+COPY python-vscode/settings.json /etc/code-server/User/settings.json
 COPY python-vscode/start.sh /start.sh
 
 CMD ["/start.sh"]
