@@ -32,7 +32,7 @@ pipeline {
             value: '' +
                 'python-jupyterlab|jupyterlab-python|master,' +
                 'python-theia|theia|master,' +
-                'python-vscode|vs-code|master,' +
+                'python-vscode|vscode|master,' +
                 'python-visualisation|visualisation-base|python,' +
                 'rv4-cran-binary-mirror|mirrors-sync-cran-binary-rv4|master,' +
                 'rv4-rstudio|rstudio-rv4|master,' +
