@@ -157,6 +157,7 @@ RUN \
     echo '[global]' > /etc/pip.conf && \
     echo 'index-url = https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/pypi/' >> /etc/pip.conf && \
     echo 'extra-index-url = https://s3-eu-west-2.amazonaws.com/jupyter.notebook.uktrade.io/shared/ddat_packages/pypi/' >> /etc/pip.conf && \
+    echo 'extra-index-url = https://s3-eu-west-2.amazonaws.com/jupyter.notebook.uktrade.io/shared/ag_packages/pypi/' >> /etc/pip.conf && \
     echo 'no-cache-dir = false' >> /etc/pip.conf
 
 COPY \
@@ -292,6 +293,8 @@ RUN \
     echo '  r = getOption("repos")' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  r["CRAN"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-debian-bullseye-r-'$R_VERSION'/"' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  r["CRAN_1"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
+    echo '  r["CRAN_2"] = "https://s3.eu-west-2.amazonaws.com/jupyter.notebook.uktrade.io/shared/ag_packages/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
+    echo '  r["CRAN_3"] = "https://s3.eu-west-2.amazonaws.com/jupyter.notebook.uktrade.io/shared/ddat_packages/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  options(repos = r)' >> /usr/lib/R/etc/Rprofile.site && \
     echo '})' >> /usr/lib/R/etc/Rprofile.site && \
     echo '' >> /usr/lib/R/etc/Rprofile.site && \
