@@ -237,7 +237,7 @@ RUN \
 RUN \
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.96.2 && \
     code-server --user-data-dir /etc/code-server --install-extension ms-python.python@2024.22.1 && \
-    code-server --user-data-dir /etc/code-server --install-extension ms-toolsai.jupyter@2024.11.10
+    code-server --user-data-dir /etc/code-server --install-extension ms-toolsai.jupyter@2024.11.0
 
 # VS Code in the browser make requests subdomains of vscode-cdn.net... but these are rewritten
 # by service workers and handled internally. So to allow us to still have quite a locked down CSP,
