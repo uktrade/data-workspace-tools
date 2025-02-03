@@ -365,7 +365,6 @@ RUN \
     R_VERSION=$(Rscript -e 'cat(paste0(getRversion()$major, ".", getRversion()$minor))') && \
     echo 'local({' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  r = getOption("repos")' >> /usr/lib/R/etc/Rprofile.site && \
-    echo '  r["CRAN"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-debian-bullseye-r-'$R_VERSION'/"' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  r["CRAN_1"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  options(repos = r)' >> /usr/lib/R/etc/Rprofile.site && \
     echo '})' >> /usr/lib/R/etc/Rprofile.site && \
