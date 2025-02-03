@@ -26,7 +26,7 @@
 ###################################################################################################
 # The base image for all tools and visualisations, containing common configuration and packages
 
-FROM --platform=linux/amd64 debian:bullseye AS base
+FROM --platform=linux/amd64 debian:bookworm AS base
 
 ENV \
     DEBIAN_FRONTEND=noninteractive \
@@ -38,9 +38,9 @@ ENV \
 RUN \
     # Install ca-certificates from our mirror, but we can't verify the HTTPS cert because we don't
     # yet have ca-certificates installed (Debian signs the packages so, so this should be safe)
-    echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye main" > /etc/apt/sources.list && \
-    echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ bullseye-security main" >> /etc/apt/sources.list && \
-    echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bullseye-updates main" >> /etc/apt/sources.list && \
+    echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bookworm main" > /etc/apt/sources.list && \
+    echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian-security/ bookworm-security main" >> /etc/apt/sources.list && \
+    echo "deb https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/debian/ bookworm-updates main" >> /etc/apt/sources.list && \
     echo "Acquire { Check-Valid-Until false; Retries 10; }" >> /etc/apt/apt.conf && \
     echo "Acquire { https::Verify-Peer false }" > /etc/apt/apt.conf.d/99verify-peer.conf && \
     apt-get update && \
@@ -320,7 +320,7 @@ RUN \
 	apt-get install -y --no-install-recommends \
 		dirmngr \
 		gnupg2 && \
-	echo "deb http://cran.ma.imperial.ac.uk/bin/linux/debian bullseye-cran40/" >> /etc/apt/sources.list && \
+	echo "deb http://cran.ma.imperial.ac.uk/bin/linux/debian bookworm-cran40/" >> /etc/apt/sources.list && \
 	until apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7'; do sleep 10; done && \
     apt-get remove --purge -y \
         dirmngr \
@@ -370,7 +370,7 @@ RUN \
     R_VERSION=$(Rscript -e 'cat(paste0(getRversion()$major, ".", getRversion()$minor))') && \
     echo 'local({' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  r = getOption("repos")' >> /usr/lib/R/etc/Rprofile.site && \
-    echo '  r["CRAN"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-debian-bullseye-r-'$R_VERSION'/"' >> /usr/lib/R/etc/Rprofile.site && \
+    echo '  r["CRAN"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-debian-bookworm-r-'$R_VERSION'/"' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  r["CRAN_1"] = "https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/"' >> /usr/lib/R/etc/Rprofile.site && \
     echo '  options(repos = r)' >> /usr/lib/R/etc/Rprofile.site && \
     echo '})' >> /usr/lib/R/etc/Rprofile.site && \
@@ -426,10 +426,10 @@ FROM rv4-common-packages AS rv4-rstudio
 RUN \
     # Install RStudio
     apt-get update && \
-    wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2023.03.0-386-amd64.deb && \
-    echo "8dcc6003cce4cf41fbbc0fd2c37c343311bbcbfa377d2e168245ab329df835b5  rstudio-server-2023.03.0-386-amd64.deb" | sha256sum -c && \
-    gdebi --non-interactive rstudio-server-2023.03.0-386-amd64.deb && \
-    rm rstudio-server-2023.03.0-386-amd64.deb && \
+    wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.12.0-467-amd64.deb && \
+    echo "1493188cdabcc1047db27d1bd0e46947e39562cbd831158c7812f88d80e742b3  rstudio-server-2024.12.0-467-amd64.deb" | sha256sum -c && \
+    gdebi --non-interactive rstudio-server-2024.12.0-467-amd64.deb && \
+    rm rstudio-server-2024.12.0-467-amd64.deb && \
     rm -rf /var/lib/apt/lists/* && \
     \
     # Configure RStudio
@@ -440,7 +440,7 @@ RUN \
     echo 'session-rprofile-on-resume-default=1' >> /etc/rstudio/rsession.conf && \
     echo 'session-timeout-minutes=0' >> /etc/rstudio/rsession.conf && \
     echo 'session-save-action-default=no' >> /etc/rstudio/rsession.conf && \
-    echo 'CRAN=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-debian-bullseye-r-'$R_VERSION'/' >> /etc/rstudio/repos.conf && \
+    echo 'CRAN=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran-binary-debian-bookworm-r-'$R_VERSION'/' >> /etc/rstudio/repos.conf && \
     echo 'CRAN_1=https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/cran/' >> /etc/rstudio/repos.conf && \
     echo 'setHook("rstudio.sessionInit", function(newSession) {' > /usr/lib/R/etc/Rprofile.site && \
     echo '  if (newSession) {' >> /usr/lib/R/etc/Rprofile.site && \
