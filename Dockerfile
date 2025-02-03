@@ -160,6 +160,11 @@ RUN \
     echo 'extra-index-url = https://s3-eu-west-2.amazonaws.com/jupyter.notebook.uktrade.io/shared/ddat_packages/pypi/' >> /etc/pip.conf && \
     echo 'no-cache-dir = false' >> /etc/pip.conf
 
+# Activate conda when launching a bash login shell
+RUN \
+    echo "conda activate base" >> /etc/profile && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+
 COPY \
     python/requirements.txt /root/
 
@@ -214,9 +219,7 @@ RUN \
 	mkdir /tmp/.yarn-cache && \
 	chown dw-user:dw-user /tmp/.yarn-cache && \
 	touch /root/yarn-error.log && \
-	chown dw-user:dw-user /root/yarn-error.log && \
-	echo "conda activate base" >> /etc/profile && \
-	ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+	chown dw-user:dw-user /root/yarn-error.log
 
 COPY python-theia/start.sh /start.sh
 
@@ -227,11 +230,6 @@ CMD ["/start.sh"]
 # VS Code
 
 FROM python AS python-vscode
-
-# Activate conda when launching a bash login shell
-RUN \
-    echo "conda activate base" >> /etc/profile && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 
 # Install VS Code (via code-server) and extensions
 RUN \
