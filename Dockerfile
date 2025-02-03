@@ -172,8 +172,12 @@ COPY \
 COPY \
     private_package_index/create_index_html.py /
 
-
+# Install Python packages via conda which makes them available to users, and avoids conflicts/
+# errors/warnings with Debian Python packages
 RUN \
+    conda init && \
+    . ~/.bashrc && \
+    conda activate base && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     python3 -m pip install -r /root/requirements.txt && \
     chown -R dw-user:dw-user /usr/local && \
