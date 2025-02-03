@@ -11,13 +11,13 @@
 # │   ├── python-jupyterLab
 # │   ├── python-theia
 # │   ├── python-vscode
-# │   └── python-visualisation
+# │   ├── python-visualisation
+# │   └── python-pgadmin
 # ├── rv4
 # │   ├── rv4-cran-binary-mirror
 # │   └── rv4-common-packages
 # │       ├── rv4-rstudio
 # │       └── rv4-visualisation
-# ├── pgadmin
 # ├── remote-desktop
 # ├── s3sync
 # └── metrics
@@ -264,6 +264,48 @@ FROM python AS python-visualisation
 
 
 ###################################################################################################
+# pgAdmin
+
+FROM python AS python-pgadmin
+
+ENV \
+    PYTHONPATH=/pgadmin4 \
+    PGADMIN_LISTEN_ADDRESS=0.0.0.0 \
+    PGADMIN_LISTEN_PORT=8888 \
+    PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org \
+    PGADMIN_DEFAULT_PASSWORD=test
+
+# pgadmin4 is not compatible with recent versions of pip, so we have to downgrade
+RUN \
+    pip3 install 'pip<24.0' && \
+    pip3 install gunicorn pgadmin4==8.11 && \
+    mkdir /pgadmin4 && \
+    mkdir -p /var/lib/pgadmin && \
+    chown dw-user:dw-user /var/lib/pgadmin && \
+    mkdir -p  /var/log/pgadmin && \
+    touch /var/log/pgadmin/pgadmin4.log && \
+    chown -R dw-user:dw-user /var/log/pgadmin && \
+    chmod g=u /var/lib/pgadmin
+
+COPY pgadmin/config_local.py /opt/conda/lib/python3.9/site-packages/pgadmin4/
+
+RUN \
+    # Set preferences to not show the dashboard on startup, which (at best) makes the logs of
+    # what's doing on in the database really noisy, and at worst has performance implications
+    # Note that we have to actually run pgadmin4 first, and only then is it possible to set preferences
+    # This is because `set-prefs` depends on rows in the SQLite preference database that, as far we
+    # we can tell, only get created after pgadmin4 has run properly. We don't have a way of detecting
+    # if pgadmin4 has run enough to actually create the preference rows, but it really should have in
+    # 20 seconds, and we only build this Docker image occasionally
+    (timeout 20s pgadmin4; exit 0) && \
+    python3 /opt/conda/lib/python3.9/site-packages/pgadmin4/setup.py set-prefs pgadmin4@pgadmin.org 'dashboards:display:show_graphs=false' 'dashboards:display:show_activity=false'
+
+COPY pgadmin/start.sh /
+
+ENTRYPOINT ["/start.sh"]
+
+
+###################################################################################################
 # Base for all R version 4 tools and visualisations
 
 FROM base AS rv4
@@ -418,49 +460,6 @@ CMD ["/rstudio-start.sh"]
 FROM rv4-common-packages AS rv4-visualisation
 
 # Uses the rv4-common-packages, nothing extra required
-
-
-###################################################################################################
-# pgAdmin
-
-FROM base AS pgadmin
-
-ENV \
-    PYTHONPATH=/pgadmin4 \
-    PGADMIN_LISTEN_ADDRESS=0.0.0.0 \
-    PGADMIN_LISTEN_PORT=8888 \
-    PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org \
-    PGADMIN_DEFAULT_PASSWORD=test
-
-RUN \
-    apt-get update && \
-    apt-get install python3 python3-pip -y --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/* && \
-    pip3 install gunicorn pgadmin4==8.11 && \
-    mkdir /pgadmin4 && \
-    mkdir -p /var/lib/pgadmin && \
-    chown dw-user:dw-user /var/lib/pgadmin && \
-    mkdir -p  /var/log/pgadmin && \
-    touch /var/log/pgadmin/pgadmin4.log && \
-    chown -R dw-user:dw-user /var/log/pgadmin && \
-    chmod g=u /var/lib/pgadmin
-
-COPY pgadmin/config_local.py /usr/local/lib/python3.9/dist-packages/pgadmin4/
-
-RUN \
-    # Set preferences to not show the dashboard on startup, which (at best) makes the logs of
-    # what's doing on in the database really noisy, and at worst has performance implications
-    # Note that we have to actually run pgadmin4 first, and only then is it possible to set preferences
-    # This is because `set-prefs` depends on rows in the SQLite preference database that, as far we
-    # we can tell, only get created after pgadmin4 has run properly. We don't have a way of detecting
-    # if pgadmin4 has run enough to actually create the preference rows, but it really should have in
-    # 20 seconds, and we only build this Docker image occasionally
-    (timeout 20s pgadmin4; exit 0) && \
-    python3 /usr/local/lib/python3.9/dist-packages/pgadmin4/setup.py set-prefs pgadmin4@pgadmin.org 'dashboards:display:show_graphs=false' 'dashboards:display:show_activity=false'
-
-COPY pgadmin/start.sh /
-
-ENTRYPOINT ["/start.sh"]
 
 
 ###################################################################################################
