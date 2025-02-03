@@ -287,7 +287,7 @@ RUN \
     chown -R dw-user:dw-user /var/log/pgadmin && \
     chmod g=u /var/lib/pgadmin
 
-COPY pgadmin/config_local.py /opt/conda/lib/python3.9/site-packages/pgadmin4/
+COPY python-pgadmin/config_local.py /opt/conda/lib/python3.9/site-packages/pgadmin4/
 
 RUN \
     # Set preferences to not show the dashboard on startup, which (at best) makes the logs of
@@ -300,7 +300,7 @@ RUN \
     (timeout 20s pgadmin4; exit 0) && \
     python3 /opt/conda/lib/python3.9/site-packages/pgadmin4/setup.py set-prefs pgadmin4@pgadmin.org 'dashboards:display:show_graphs=false' 'dashboards:display:show_activity=false'
 
-COPY pgadmin/start.sh /
+COPY python-pgadmin/start.sh /
 
 ENTRYPOINT ["/start.sh"]
 
