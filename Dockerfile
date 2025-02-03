@@ -518,6 +518,9 @@ CMD ["/start.sh"]
 
 ###################################################################################################
 # Syncs files to and from each user's areas in S3 ("Your files")
+#
+# We _could_ inherit from the Python base layer, and this might be nicer for maintainability, but
+# this is a sidecar image, and so prefer to keep it small so it doesn't slow down loading of tools.
 
 FROM base AS s3sync
 
@@ -528,8 +531,10 @@ RUN \
 
 RUN \
     apt update && \
-    apt install -y sudo python3-pip && \
-    rm -rf /var/lib/apt/lists/*
+    apt install -y sudo python3-pip python3-venv && \
+    rm -rf /var/lib/apt/lists/* && \
+    python3 -m venv /venv && \
+    . /venv/bin/activate
 
 COPY s3sync/requirements.txt /app/
 
@@ -539,23 +544,28 @@ RUN \
 
 COPY s3sync/start.sh /
 
-CMD ["/start.sh"]
+CMD . /venv/bin/activate && /start.sh
 
 
 ###################################################################################################
 # Collects metrics from tools
+#
+# We _could_ inherit from the Python base layer, and this might be nicer for maintainability, but
+# this is a sidecar image, and so prefer to keep it small so it doesn't slow down loading of tools.
 
 FROM base AS metrics
 
 RUN \
-    apt-get update && \
-    apt-get install python3 python3-pip -y --no-install-recommends && \
+    apt update && \
+    apt install -y sudo python3-pip python3-venv && \
     rm -rf /var/lib/apt/lists/* && \
+    python3 -m venv /venv && \
+    . /venv/bin/activate && \
 	pip3 install \
 		aiohttp==3.10.10
 
 COPY metrics/metrics.py /
 
-CMD ["python3", "/metrics.py"]
+CMD . /venv/bin/activate && python3 /metrics.py
 
 USER dw-user
