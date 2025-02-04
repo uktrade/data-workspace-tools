@@ -141,15 +141,17 @@ RUN \
     apt-get remove --purge -y \
         wget && \
     rm /etc/apt/sources.list.d/nodesource.list && \
-    rm -rf /var/lib/apt/lists/* && \
-    \
+    rm -rf /var/lib/apt/lists/*
+
+RUN \
     mkdir -p "$CONDA_DIR" && \
-    curl https://repo.anaconda.com/miniconda/Miniconda3-py39_24.3.0-0-Linux-x86_64.sh --output /root/miniconda.sh && \
-    echo "1c3d44e987dc56c7d8954419fa1a078be5ddbc293d8cb98b184a23f9a270faad /root/miniconda.sh" | sha256sum --check --status && \
+    curl https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh --output /root/miniconda.sh && \
+    echo "3ea8373098d72140e08aac9217822b047ec094eb457e7f73945af7c6f68bf6f5 /root/miniconda.sh" | sha256sum --check --status && \
     bash /root/miniconda.sh -f -b -p "$CONDA_DIR" && \
     echo 'channels:' > /opt/conda/.condarc && \
     echo '  - https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/conda-forge/' >> /opt/conda/.condarc && \
     echo '  - https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/anaconda/' >> /opt/conda/.condarc && \
+    echo 'channel_alias: https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/' >> /opt/conda/.condarc && \
     echo 'allow_other_channels: false' >> /opt/conda/.condarc && \
     echo 'auto_update_conda: false' >> /opt/conda/.condarc && \
     echo 'always_yes: true' >> /opt/conda/.condarc && \
@@ -158,12 +160,18 @@ RUN \
     echo '[global]' > /etc/pip.conf && \
     echo 'index-url = https://s3-eu-west-2.amazonaws.com/mirrors.notebook.uktrade.io/pypi/' >> /etc/pip.conf && \
     echo 'extra-index-url = https://s3-eu-west-2.amazonaws.com/jupyter.notebook.uktrade.io/shared/ddat_packages/pypi/' >> /etc/pip.conf && \
-    echo 'no-cache-dir = false' >> /etc/pip.conf
-
-# Activate conda when launching a bash login shell
-RUN \
+    echo 'no-cache-dir = false' >> /etc/pip.conf && \
+    # Activate conda when launching a bash login shell
     echo "conda activate base" >> /etc/profile && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    # Install conda's default solver (which strangely doesn't seem to get installed by default)
+    conda install conda-libmamba-solver --name base
+
+# Activate conda for the CMD of any Docker stage that derives from this one
+ENTRYPOINT ["/opt/conda/bin/conda", "run", "--no-capture-output", "--name", "base"]
+
+# Activate conda for subsequent RUN statements
+SHELL ["/opt/conda/bin/conda", "run", "--no-capture-output", "--name", "base", "/bin/bash", "-c"]
 
 COPY \
     python/requirements.txt /root/
@@ -175,9 +183,6 @@ COPY \
 # Install Python packages via conda which makes them available to users, and avoids conflicts/
 # errors/warnings with Debian Python packages
 RUN \
-    conda init && \
-    . ~/.bashrc && \
-    conda activate base && \
     python3 -m pip install --upgrade pip setuptools wheel && \
     python3 -m pip install -r /root/requirements.txt && \
     chown -R dw-user:dw-user /usr/local && \
