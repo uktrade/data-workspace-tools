@@ -11,6 +11,10 @@ anyio==4.0.0
     #   httpcore
     #   httpx
     #   jupyter-server
+appnope==0.1.4
+    # via
+    #   ipykernel
+    #   ipython
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -37,6 +41,8 @@ blinker==1.7.0
     # via
     #   flask
     #   quart
+build==1.2.2.post1
+    # via pip-tools
 certifi==2024.7.4
     # via
     #   httpcore
@@ -51,6 +57,7 @@ click==8.1.7
     # via
     #   flask
     #   git-lfs-http-mirror
+    #   pip-tools
     #   quart
 comm==0.1.4
     # via
@@ -84,8 +91,6 @@ fqdn==1.5.1
     # via jsonschema
 git-lfs-http-mirror==0.0.7
     # via -r requirements.in
-greenlet==3.1.1
-    # via sqlalchemy
 h11==0.14.0
     # via
     #   httpcore
@@ -115,6 +120,7 @@ idna==3.7
     #   requests
 importlib-metadata==8.5.0
     # via
+    #   build
     #   flask
     #   jupyter-client
     #   jupyter-lsp
@@ -259,6 +265,7 @@ overrides==7.4.0
     # via jupyter-server
 packaging==23.1
     # via
+    #   build
     #   ipykernel
     #   jupyter-server
     #   jupyterlab
@@ -280,6 +287,8 @@ pillow==10.3.0
     # via
     #   ipympl
     #   matplotlib
+pip-tools==7.4.1
+    # via -r requirements.in
 platformdirs==3.10.0
     # via jupyter-core
 prettytable==3.8.0
@@ -314,6 +323,10 @@ pyjwt==2.9.0
     # via python-arango
 pyparsing==3.0.9
     # via matplotlib
+pyproject-hooks==1.2.0
+    # via
+    #   build
+    #   pip-tools
 python-arango==8.1.1
     # via -r requirements.in
 python-dateutil==2.8.2
@@ -394,8 +407,10 @@ tinycss2==1.2.1
     # via nbconvert
 tomli==2.0.1
     # via
+    #   build
     #   hypercorn
     #   jupyterlab
+    #   pip-tools
 tornado==6.4.2
     # via
     #   ipykernel
@@ -451,6 +466,8 @@ werkzeug==3.0.6
     # via
     #   flask
     #   quart
+wheel==0.45.1
+    # via pip-tools
 widgetsnbextension==4.0.8
     # via ipywidgets
 wsproto==1.2.0
@@ -461,4 +478,5 @@ zipp==3.20.2
     #   importlib-resources
 
 # The following packages are considered to be unsafe in a requirements file:
+# pip
 # setuptools

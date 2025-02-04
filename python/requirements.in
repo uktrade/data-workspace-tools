@@ -9,6 +9,7 @@ jupyter-resource-usage
 notebook
 numpy
 pandas
+pip-tools
 psycopg2-binary
 python-arango
 sentry-sdk
