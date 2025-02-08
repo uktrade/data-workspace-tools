@@ -1,6 +1,10 @@
-# Data Workspace Tools
+<p align="center">
+  <img alt="Data Workspace Tools logo" width="177.719" height="200" src="./.assets/data-workspace-tools-logo.svg">
+</p>
 
-Repository for the Dockerfile for Data Workspace on-demand tools and related components.
+<p align="center"><strong>Data Workspace Tools</strong> <em>- Repository for the Dockerfile that defines <a href="https://github.com/uktrade/data-workspace">Data Workspace</a> on-demand tools and related components</em></p>
+
+---
 
 The tools can be built and pushed using https://jenkins.ci.uktrade.digital/job/data-workspace-tools/.
 
