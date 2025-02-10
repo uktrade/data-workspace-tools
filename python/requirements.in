@@ -10,6 +10,7 @@ notebook
 numpy
 pandas
 pip-tools
+pre-commit
 psycopg2-binary
 python-arango
 sentry-sdk
