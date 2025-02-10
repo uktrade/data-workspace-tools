@@ -1,3 +1,4 @@
+boto3
 cython
 git-lfs-http-mirror
 ipympl
