@@ -295,15 +295,19 @@ RUN \
 COPY python-pgadmin/config_local.py /opt/conda/lib/python3.9/site-packages/pgadmin4/
 
 RUN \
-    # Set preferences to not show the dashboard on startup, which (at best) makes the logs of
-    # what's doing on in the database really noisy, and at worst has performance implications
+    # Set preferences to:
+    # - not show the dashboard or activity on startup, which (at best) makes the logs of what's
+    #   doing on in the database really noisy, and at worst has performance implications
+    # - also not show roles, which for us doesn't really have a use case, and also can return
+    #   thousands of roles, which can have performance implictions
+    # - and not show tablespaces, which we don't need for users
     # Note that we have to actually run pgadmin4 first, and only then is it possible to set preferences
     # This is because `set-prefs` depends on rows in the SQLite preference database that, as far we
     # we can tell, only get created after pgadmin4 has run properly. We don't have a way of detecting
     # if pgadmin4 has run enough to actually create the preference rows, but it really should have in
     # 20 seconds, and we only build this Docker image occasionally
     (timeout 20s pgadmin4; exit 0) && \
-    python3 /opt/conda/lib/python3.9/site-packages/pgadmin4/setup.py set-prefs pgadmin4@pgadmin.org 'dashboards:display:show_graphs=false' 'dashboards:display:show_activity=false'
+    python3 /opt/conda/lib/python3.9/site-packages/pgadmin4/setup.py set-prefs pgadmin4@pgadmin.org 'dashboards:display:show_graphs=false' 'dashboards:display:show_activity=false' 'browser:node:show_node_role=false' 'browser:node:show_node_tablespace=false'
 
 COPY python-pgadmin/start.sh /
 
