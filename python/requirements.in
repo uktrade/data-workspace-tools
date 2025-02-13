@@ -1,4 +1,3 @@
-boto3
 cython
 git-lfs-http-mirror
 ipympl
@@ -11,7 +10,6 @@ notebook
 numpy
 pandas
 pip-tools
-pre-commit
 psycopg2-binary
 python-arango
 sentry-sdk
