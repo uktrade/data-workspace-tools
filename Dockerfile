@@ -309,6 +309,12 @@ RUN \
     (timeout 20s pgadmin4; exit 0) && \
     python3 /opt/conda/lib/python3.9/site-packages/pgadmin4/setup.py set-prefs pgadmin4@pgadmin.org 'dashboards:display:show_graphs=false' 'dashboards:display:show_activity=false' 'browser:node:show_node_role=false' 'browser:node:show_node_tablespace=false'
 
+RUN \
+    # This query fetches all roles on the server when starting up pgAdmin/running queries, even
+    # though showing roles is disabled in the UI, and it is extremely unperformant. The easiest
+    # workaround to get things going seems to be to add a LIMIT 0 to the end of it
+    echo " LIMIT 0" >> /opt/conda/lib/python3.9/site-packages/pgadmin4/pgadmin/browser/server_groups/servers/roles/templates/roles/sql/default/nodes.sql
+
 COPY python-pgadmin/start.sh /
 
 CMD ["/start.sh"]
