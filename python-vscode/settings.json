@@ -9,5 +9,8 @@
     }
   },
   "terminal.integrated.defaultProfile.linux": "bash",
-  "python.defaultInterpreterPath": "/opt/conda/bin/python3"
+  "python.defaultInterpreterPath": "/opt/conda/bin/python3",
+  "vscode-postgres.defaultConnection": "datasets",
+  "vscode-postgres.defaultDatabase": "public_datasets_1",
+  "vscode-postgres.virtualFolders": []
 }
