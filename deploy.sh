@@ -68,11 +68,11 @@ elif [ "$2" == "remote-desktop" ]; then
 elif [ "$2" == "s3sync" ]; then
   tool=s3sync
   tag=master
-  image=jupyterlab-python
+  image=s3sync
 elif [ "$2" == "metrics" ]; then
   tool=metrics
   tag=master
-  image=jupyterlab-python
+  image=metrics
 else
   echo "Second argument not recognised - valid args are:
   'python-jupyterlab',
