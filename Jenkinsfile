@@ -92,8 +92,8 @@ pipeline {
                           mountPath: /kaniko/.docker
                       volumes:
                       - name: jenkins-docker-cfg
-                        configMap:
-                          name: docker-config
+                        secret:
+                          secretName: jenkins-data-workspace
                           items:
                           - key: config.json
                             path: config.json
