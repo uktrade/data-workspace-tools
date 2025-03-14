@@ -29,10 +29,10 @@ else
   exit 1
 fi
 
-if [ "$2" == "python-jupyterLab" ]; then
-  tool=python-jupyterLab
+if [ "$2" == "python-jupyterlab" ]; then
+  tool=python-jupyterlab
   tag=master
-  image=jupyterLab-python
+  image=jupyterlab-python
 elif [ "$2" == "python-theia" ]; then
   tool=python-theia
   tag=master
@@ -68,14 +68,14 @@ elif [ "$2" == "remote-desktop" ]; then
 elif [ "$2" == "s3sync" ]; then
   tool=s3sync
   tag=master
-  image=jupyterLab-python
+  image=jupyterlab-python
 elif [ "$2" == "metrics" ]; then
   tool=metrics
   tag=master
-  image=jupyterLab-python
+  image=jupyterlab-python
 else
   echo "Second argument not recognised - valid args are:
-  'python-jupyterLab',
+  'python-jupyterlab',
   'python-theia',
   'python-vscode',
   'python-visualisation',
