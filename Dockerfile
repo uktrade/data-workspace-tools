@@ -379,7 +379,8 @@ RUN \
 		texlive \
 		texlive-latex-extra \
 		vim \
-		wget && \
+		wget \
+		xclip && \
 	rm -rf /var/lib/apt/lists/* && \
     # Remove the last line from sources: the CRAN debian repo that has R itself, which we don't mirror
     sed -i '$d' /etc/apt/sources.list && \
