@@ -245,9 +245,10 @@ FROM python AS python-vscode
 # Install VS Code (via code-server) and extensions
 RUN \
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.96.2 && \
-    code-server --user-data-dir /etc/code-server --install-extension ms-python.python@2024.22.1 && \
-    code-server --user-data-dir /etc/code-server --install-extension ms-toolsai.jupyter@2024.11.0 && \
-    code-server --user-data-dir /etc/code-server --install-extension ckolkman.vscode-postgres@1.4.3
+    code-server --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --install-extension ms-python.python@2024.22.1 && \
+    code-server --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --install-extension ms-toolsai.jupyter@2024.11.0 && \
+    code-server --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --install-extension ckolkman.vscode-postgres@1.4.3 && \
+    rm -r -f /home/dw-user/.vscode
 
 # VS Code in the browser make requests subdomains of vscode-cdn.net... but these are rewritten
 # by service workers and handled internally. So to allow us to still have quite a locked down CSP,
@@ -262,9 +263,10 @@ RUN \
 # one, and since it seems to use libpq under the hood, it will automatically take credentials
 # from environment variables
 RUN \
-    echo -e "\nexports.activate = (context) => {context.globalState.update('postgresql.connections',{'00000000-0000-4000-8000-000000000000':{label:'datasets',hasPassword:false,ssl:true,certPath:'/certs/rds-global-bundle.pem',database:'public_datasets_1',host:'',user:'',port:''}});activate(context);};" >> /etc/code-server/extensions/ckolkman.vscode-postgres-1.4.3-universal/out/extension.js
+    echo -e "\nexports.activate = (context) => {context.globalState.update('postgresql.connections',{'00000000-0000-4000-8000-000000000000':{label:'datasets',hasPassword:false,ssl:true,certPath:'/certs/rds-global-bundle.pem',database:'public_datasets_1',host:'',user:'',port:''}});activate(context);};" >> /etc/code-server-extensions/ckolkman.vscode-postgres-1.4.3-universal/out/extension.js
 
-COPY python-vscode/settings.json /etc/code-server/User/settings.json
+COPY python-vscode/merge-settings.py /merge-settings.py
+COPY python-vscode/settings.json /etc/code-server-defaults/settings.json
 COPY python-vscode/start.sh /start.sh
 
 CMD ["/start.sh"]
