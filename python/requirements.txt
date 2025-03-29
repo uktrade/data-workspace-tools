@@ -11,10 +11,6 @@ anyio==4.0.0
     #   httpcore
     #   httpx
     #   jupyter-server
-appnope==0.1.4
-    # via
-    #   ipykernel
-    #   ipython
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -105,6 +101,8 @@ fqdn==1.5.1
     # via jsonschema
 git-lfs-http-mirror==0.0.7
     # via -r requirements.in
+greenlet==3.1.1
+    # via sqlalchemy
 h11==0.14.0
     # via
     #   httpcore
@@ -176,7 +174,7 @@ itsdangerous==2.1.2
     #   quart
 jedi==0.19.0
     # via ipython
-jinja2==3.1.5
+jinja2==3.1.6
     # via
     #   flask
     #   jupyter-server
