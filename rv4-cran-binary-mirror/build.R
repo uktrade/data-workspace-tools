@@ -33,6 +33,15 @@ files_to_upload <- sub("^\\./(.*)", "\\1", new_file_names)
 library("aws.s3")
 library("aws.ec2metadata")
 for (file_name in files_to_upload) {
+  # Archive (used by renv)
+  package = regmatches(file_name, regexpr('[^_]+', file_name))
+  put_object(
+    file = file.path(file_name),
+    object = paste(folder_name, file_prefix, 'Archive/', package, '/', file_name, sep = ""),
+    bucket = bucket_name,
+    headers = c("x-amz-server-side-encryption" = "AES256")
+  )
+  # Current version (used by install.packages)
   put_object(
     file = file.path(file_name),
     object = paste(folder_name, file_prefix, file_name, sep = ""),
