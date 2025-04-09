@@ -448,10 +448,10 @@ FROM rv4-common-packages AS rv4-rstudio
 RUN \
     # Install RStudio
     apt-get update && \
-    wget -q https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2023.03.0-386-amd64.deb && \
-    echo "8dcc6003cce4cf41fbbc0fd2c37c343311bbcbfa377d2e168245ab329df835b5  rstudio-server-2023.03.0-386-amd64.deb" | sha256sum -c && \
-    gdebi --non-interactive rstudio-server-2023.03.0-386-amd64.deb && \
-    rm rstudio-server-2023.03.0-386-amd64.deb && \
+    wget -q https://download2.rstudio.org/server/focal/amd64/rstudio-server-2024.12.1-563-amd64.deb && \
+    echo "1dabc54cf58a1b36c0e0205f15f54110432772d7abe88e045d3cbecb36fa9b44  rstudio-server-2024.12.1-563-amd64.deb" | sha256sum -c && \
+    gdebi --non-interactive rstudio-server-2024.12.1-563-amd64.deb && \
+    rm rstudio-server-2024.12.1-563-amd64.deb && \
     rm -rf /var/lib/apt/lists/* && \
     \
     # Configure RStudio
