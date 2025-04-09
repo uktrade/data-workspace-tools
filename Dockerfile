@@ -12,7 +12,8 @@
 # │   ├── python-theia
 # │   ├── python-vscode
 # │   ├── python-visualisation
-# │   └── python-pgadmin
+# │   ├── python-pgadmin
+# │   └── python-methesar
 # ├── rv4
 # │   ├── rv4-cran-binary-mirror
 # │   └── rv4-common-packages
@@ -328,6 +329,38 @@ RUN \
     echo " LIMIT 0" >> /opt/conda/lib/python3.9/site-packages/pgadmin4/pgadmin/browser/server_groups/servers/roles/templates/roles/sql/default/nodes.sql
 
 COPY python-pgadmin/start.sh /
+
+CMD ["/start.sh"]
+
+
+###################################################################################################
+# mathesar
+
+FROM python AS python-mathesar
+
+RUN apt-get update && apt-get install -y \
+    sudo python3-pip python3-venv git \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+# Clone Methesar repo
+RUN git clone https://github.com/methesar/methesar.git /app
+
+COPY python-mathesar/requirements.txt /app/
+
+RUN \
+    pip3 install \
+        -r /app/requirements.txt
+
+RUN python manage.py collectstatic --noinput
+
+COPY python-mathesar/start.sh /
 
 CMD ["/start.sh"]
 
