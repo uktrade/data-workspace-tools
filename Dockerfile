@@ -338,29 +338,54 @@ CMD ["/start.sh"]
 
 FROM python AS python-mathesar
 
-RUN apt-get update && apt-get install -y \
+ARG BUILD_PG_MAJOR=17
+ENV PG_MAJOR=$BUILD_PG_MAJOR
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo python3-pip python3-venv git \
     build-essential \
     libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+    wget \
+    unzip \
+    gettext \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN \
+    sudo install -d /usr/share/postgresql-common/pgdg && \
+    sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
+    . /etc/os-release && \
+    sudo sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list" && \
+    sudo apt update && \
+    sudo apt -y install postgresql-$PG_MAJOR
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app
-
-# Clone Methesar repo
-RUN git clone https://github.com/methesar/methesar.git /app
-
-COPY python-mathesar/requirements.txt /app/
-
 RUN \
-    pip3 install \
-        -r /app/requirements.txt
+    mkdir -p "/mathesar" && \
+    cd /mathesar && \
+    git clone https://github.com/mathesar-foundation/mathesar.git && \
+    cd mathesar && \
+    git checkout "0.2.2" && \
+    python3 -m pip install -r requirements.txt && \
+    wget https://github.com/mathesar-foundation/mathesar/releases/download/0.2.2/static_files.zip && \
+    unzip static_files.zip && mv static_files mathesar/static/mathesar && rm static_files.zip && \
+    python manage.py compilemessages && \
+    mkdir .media && \
+    python -m mathesar.install | tee /tmp/install.py.log
 
-RUN python manage.py collectstatic --noinput
+ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
+
+ENV PGDATA /var/lib/postgresql/mathesar
 
 COPY python-mathesar/start.sh /
+
+COPY python-mathesar/db_run.sh /
+
+RUN \
+    chmod u+r+x /start.sh && \
+    chmod u+r+x /db_run.sh
 
 CMD ["/start.sh"]
 

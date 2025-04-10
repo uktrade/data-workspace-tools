@@ -11,7 +11,7 @@ if [ -z "${POSTGRES_USER}" ] || [ -z "${POSTGRES_PASSWORD}" ] \
   || [ -z "${POSTGRES_DB}" ]
 then
   echo "Starting inbuilt database"
-  ./db-run.sh
+  /db_run.sh
   export POSTGRES_USER=postgres
   export POSTGRES_PASSWORD=mathesar
   export POSTGRES_HOST=localhost
