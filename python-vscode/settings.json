@@ -10,7 +10,7 @@
   },
   "terminal.integrated.defaultProfile.linux": "bash",
   "python.defaultInterpreterPath": "/opt/conda/bin/python3",
-  "python.languageServer": "JediLSP",
+  "python.languageServer": "Jedi",
   "vscode-postgres.defaultConnection": "datasets",
   "vscode-postgres.defaultDatabase": "public_datasets_1",
   "vscode-postgres.virtualFolders": []
