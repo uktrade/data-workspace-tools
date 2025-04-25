@@ -167,7 +167,9 @@ RUN \
     # Install conda's default solver (which strangely doesn't seem to get installed by default)
     conda install conda-libmamba-solver --name base && \
     # Install git filter repo so removal of data is a little easier
-    conda install git-filter-repo --name base
+    conda install git-filter-repo --name base && \
+    # Seems to need this run in order to initialise LFS
+    git lfs install
 
 # Activate conda for the CMD of any Docker stage that derives from this one
 ENTRYPOINT ["/opt/conda/bin/conda", "run", "--no-capture-output", "--name", "base"]
