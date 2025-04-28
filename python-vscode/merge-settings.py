@@ -39,7 +39,7 @@ merged_settings = json.dumps({
     **default_settings,
 }).encode('utf-8')
 
-os.makedirs('/home/dw-user/.vscode/User')
+os.makedirs('/home/dw-user/.vscode/User', exist_ok=True)
 with open('/home/dw-user/.vscode/User/settings.json', 'wb') as f:
     f.write(merged_settings)
 
