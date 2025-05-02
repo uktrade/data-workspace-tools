@@ -168,6 +168,8 @@ RUN \
     conda install conda-libmamba-solver --name base && \
     # Install git filter repo so removal of data is a little easier
     conda install git-filter-repo --name base && \
+    #Seem to lose less when inside the conda env so needs installing here
+    conda install less --name base && \
     # Seems to need this run in order to initialise LFS
     git lfs install
 
