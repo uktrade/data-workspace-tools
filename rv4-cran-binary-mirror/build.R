@@ -10,7 +10,7 @@ packages <- list(
 # when major or minor version is upgraded. So we store compiled packages in a location with
 # the major.minor in the path, but not the patch.
 # https://rstats.wtf/maintaining-r.html#how-to-transfer-your-library-when-updating-r
-folder_name <- paste("cran-binary-", "debian-bullseye", "-r-", getRversion()$major, ".", getRversion()$minor,  sep="")
+folder_name <- paste("cran-binary-", "debian-bookworm", "-r-", getRversion()$major, ".", getRversion()$minor,  sep="")
 file_prefix <- "/src/contrib/"
 bucket_name <- Sys.getenv("MIRRORS_BUCKET_NAME") 
 
