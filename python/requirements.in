@@ -5,6 +5,7 @@ ipympl
 ipython-sql
 ipython
 ipywidgets
+jedi-language-server
 jupyterlab
 jupyter-resource-usage
 notebook
