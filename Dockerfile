@@ -12,7 +12,8 @@
 # │   ├── python-theia
 # │   ├── python-vscode
 # │   ├── python-visualisation
-# │   └── python-pgadmin
+# │   ├── python-pgadmin
+# │   └── python-methesar
 # ├── rv4
 # │   ├── rv4-cran-binary-mirror
 # │   └── rv4-common-packages
@@ -55,6 +56,7 @@ RUN \
     # Install and configure locales, fonts, sudo, and the user and group to run tools under
     apt-get update && \
     apt-get install -y --no-install-recommends \
+        gettext \
         locales \
         sudo && \
     rm -rf /var/lib/apt/lists/* && \
@@ -334,6 +336,92 @@ RUN \
 COPY python-pgadmin/start.sh /
 
 CMD ["/start.sh"]
+
+
+###################################################################################################
+# mathesar
+
+FROM python AS python-mathesar
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV DOCKERIZE_VERSION v0.6.1
+ARG BUILD_PG_MAJOR=17
+ENV PG_MAJOR=$BUILD_PG_MAJOR
+
+WORKDIR /app/
+COPY python-mathesar/default.env /app/.env
+
+RUN mkdir -p /etc/apt/keyrings;
+# Add Postgres source
+RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ; \
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list;
+
+# Define Locale
+RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
+
+# Install Postgres
+RUN \
+    sudo install -d /usr/share/postgresql-common/pgdg && \
+    sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
+    . /etc/os-release && \
+    sudo sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list" && \
+    sudo apt update && \
+    sudo apt -y install postgresql-$PG_MAJOR
+
+ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
+ENV PGDATA /var/lib/postgresql/mathesar
+
+VOLUME /etc/postgresql/
+VOLUME /var/lib/postgresql/
+
+EXPOSE 5432
+
+RUN \
+    curl https://ftp.gnu.org/gnu/parallel/parallel-20190522.tar.bz2 > parallel-20190522.tar.bz2 && \
+    tar xjf parallel-20190522.tar.bz2 && \
+    cd parallel-20190522 && \
+    ./configure && make && make install && \
+    cd / && \
+    rm -rf parallel-20190522 parallel-20190522.tar.bz2
+ 
+RUN \
+	apt-get update && \
+	apt-get install -y --no-install-recommends \
+		wget \
+        unzip
+
+RUN \
+    set -a && source .env && set +a && \
+    git clone https://github.com/mathesar-foundation/mathesar.git && \
+    cd mathesar && \
+    git checkout "0.2.2" && \
+    python3 -m pip install -r requirements.txt && \
+    wget https://github.com/mathesar-foundation/mathesar/releases/download/0.2.2/static_files.zip && \
+    unzip static_files.zip && mv static_files mathesar/static/mathesar && rm static_files.zip && \
+    python3 manage.py compilemessages && \
+    mkdir .media && \
+    python3 -m mathesar.install | tee /tmp/install.py.log
+
+ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
+
+ENV PGDATA /var/lib/postgresql/mathesar
+
+COPY python-mathesar/start.sh /mathesar/start.sh
+COPY python-mathesar/db_run.sh /mathesar/db_run.sh
+COPY python-mathesar/Caddyfile /mathesar/Caddyfile
+
+RUN \
+    chmod u+r+x /mathesar/start.sh && \
+    chmod u+r+x /mathesar/db_run.sh
+
+CMD ["/mathesar/start.sh"]
 
 
 ###################################################################################################

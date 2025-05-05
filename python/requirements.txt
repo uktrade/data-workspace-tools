@@ -160,7 +160,7 @@ ipython-genutils==0.2.0
     # via
     #   ipympl
     #   ipython-sql
-ipython-sql==0.5.0
+# ipython-sql==0.5.0
     # via -r requirements.in
 ipywidgets==8.1.0
     # via
