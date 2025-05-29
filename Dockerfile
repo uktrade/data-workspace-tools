@@ -248,7 +248,7 @@ FROM python AS python-vscode
 
 # Install VS Code (via code-server) and extensions
 RUN \
-    curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.96.2 && \
+    curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.100.2 && \
     code-server --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --install-extension ms-python.python@2024.22.1 && \
     code-server --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --install-extension ms-toolsai.jupyter@2024.11.0 && \
     code-server --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --install-extension ckolkman.vscode-postgres@1.4.3 && \

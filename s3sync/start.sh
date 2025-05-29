@@ -5,6 +5,9 @@ chown -R dw-user:dw-user /home/s3sync/data
 
 set -e
 
+# Disable for testing
+while true; do sleep 2; done
+
 # Path-style even though it's deprecated. The bucket names have dots in, and
 # at the time of writing the host-style certs returned by AWS are wildcards
 # and don't support dots in the bucket name
@@ -27,7 +30,7 @@ sudo -E -u dw-user mobius3 \
     --cloudwatch-monitoring-namespace=${CLOUDWATCH_MONITORING_NAMESPACE} \
     --log-level INFO \
     --credentials-source ecs-container-endpoint \
-    --exclude-remote '(.*(/|^)\.checkpoints/)|(.*(/|^)bigdata/.*)|(.*(/|^)\.vnc/?.*)|(.*(/|^)\.dbus/?.*)|(.*(/|^)\.config/lxqt?.*)|(.*(/|^)\.cache/openbox?.*)|(.*(/|^)\.config/openbox?.*)|(.*(/|^)\.cache/mesa_shader_cache?.*)|(.*(/|^)\.Xauthority)|(.*(/|^)Desktop/.*\.desktop$)' \
-    --exclude-local '(.*(/|^)\.__mobius3_flush__.*)|(.*(/|^)bigdata/.*)|(.*(/|^)\.vnc/?.*)|(.*(/|^)\.dbus/?.*)|(.*(/|^)\.config/lxqt?.*)|(.*(/|^)\.cache/openbox?.*)|(.*(/|^)\.config/openbox?.*)|(.*(/|^)\.cache/mesa_shader_cache?.*)|(.*(/|^)\.Xauthority)|(.*(/|^)Desktop/.*\.desktop$)' \
+    --exclude-remote '(.*(/|^)\.checkpoints/)|(.*(/|^)bigdata/.*)|(.*(/|^)\.vnc/?.*)|(.*(/|^)\.dbus/?.*)|(.*(/|^)\.config/lxqt?.*)|(.*(/|^)\.cache/openbox?.*)|(.*(/|^)\.config/openbox?.*)|(.*(/|^)\.cache/mesa_shader_cache?.*)|(.*(/|^)\.Xauthority)|(.*(/|^)Desktop/.*\.desktop$)|(.*(/|^)vscode\.lock$)' \
+    --exclude-local '(.*(/|^)\.__mobius3_flush__.*)|(.*(/|^)bigdata/.*)|(.*(/|^)\.vnc/?.*)|(.*(/|^)\.dbus/?.*)|(.*(/|^)\.config/lxqt?.*)|(.*(/|^)\.cache/openbox?.*)|(.*(/|^)\.config/openbox?.*)|(.*(/|^)\.cache/mesa_shader_cache?.*)|(.*(/|^)\.Xauthority)|(.*(/|^)Desktop/.*\.desktop$)|(.*(/|^)vscode\.lock$)' \
     --upload-on-create '^.*/\.git/.*$' \
     --force-ipv4

@@ -14,4 +14,4 @@ chown -R dw-user:dw-user /home/dw-user/.vscode
 chown -R dw-user:dw-user /etc/code-server-extensions
 
 cd /home/dw-user
-exec sudo -E -H -u dw-user code-server --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --auth none --bind-addr 0.0.0.0:8888
+exec sudo -E -H -u dw-user code-server --log trace --extensions-dir /etc/code-server-extensions --user-data-dir /home/dw-user/.vscode --auth none --bind-addr 0.0.0.0:8888
